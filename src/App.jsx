@@ -524,12 +524,33 @@ function MainLayout() {
 
       {/* 2-Column Masonry Grid from wireframe */}
       <section id="work" className="px-10 md:px-32 pb-32 max-w-[1600px] mx-auto w-full">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[35%_1fr] gap-6 lg:gap-8 items-start">
 
-          {/* Left Column (35%) */}
-          <div className="w-full lg:w-[35%] flex flex-col gap-6 lg:gap-8 fade-up">
+          {/* 1: Who are you — col 1 row 1 on desktop, order 1 on mobile */}
+          <div className="lg:col-start-1 lg:row-start-1 fade-up">
             <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={(g) => setGuests(prev => prev.length >= MAX_GUESTS ? [g] : [...prev, g])} />
+          </div>
 
+          {/* 2: Rootine — col 2 row 1 on desktop, order 2 on mobile */}
+          <div className="lg:col-start-2 lg:row-start-1 fade-up">
+            <Link to="/rootine">
+              <BentoCard title="Rootine" className="h-[400px]" tags={['End-to-end', 'UXUI', 'Mobile']}>
+                <img src={projects[0].image} alt="Rootine" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
+              </BentoCard>
+            </Link>
+          </div>
+
+          {/* 3: IMDb — col 2 row 2 on desktop, order 3 on mobile */}
+          <div className="lg:col-start-2 lg:row-start-2 fade-up">
+            <Link to="/imdb">
+              <BentoCard title="IMDb App" className="h-[300px]" tags={['Redesign', 'UXUI']}>
+                <img src={projects[1].image} alt="IMDb App" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
+              </BentoCard>
+            </Link>
+          </div>
+
+          {/* 4: Interaction Design — col 1 row 2 on desktop, order 4 on mobile */}
+          <div className="lg:col-start-1 lg:row-start-2 fade-up">
             <Link to="/interaction-design">
               <BentoCard title="Interaction Design" className="h-[480px]" tags={['Current']} bg="#FAF4FF">
                 <img src="/interaction/thumbnail.png" alt="Interaction Design" className="absolute inset-0 w-full h-full object-contain z-10" />
@@ -537,20 +558,8 @@ function MainLayout() {
             </Link>
           </div>
 
-          {/* Right Column (65%) */}
-          <div className="w-full lg:w-[65%] flex flex-col gap-6 lg:gap-8 fade-up">
-            <Link to="/rootine">
-              <BentoCard title="Rootine" className="h-[400px]" tags={['End-to-end', 'UXUI', 'Mobile']}>
-                <img src={projects[0].image} alt="Rootine" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
-              </BentoCard>
-            </Link>
-
-            <Link to="/imdb">
-              <BentoCard title="IMDb App" className="h-[300px]" tags={['Redesign', 'UXUI']}>
-                <img src={projects[1].image} alt="IMDb App" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
-              </BentoCard>
-            </Link>
-
+          {/* 5: Fintalo + Scribbling — col 2 row 3 on desktop, order 5 on mobile */}
+          <div className="lg:col-start-2 lg:row-start-3 fade-up">
             <div className="flex gap-6 lg:gap-8">
               <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUM Design', 'UXUI', 'B2B', 'Web']}>
                 <div className="absolute inset-0 z-0" style={{ backgroundColor: '#DFECFC' }} />

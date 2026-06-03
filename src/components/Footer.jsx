@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Top: message left, links right */}
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
           <p className="font-['Outfit'] font-light text-2xl md:text-[2rem] text-white/80 leading-relaxed max-w-xl">
-            Thanks for making it this far down the page. I hope we can go even further together!
+            Thanks for making it this far down the page.<br />I hope we can go even further together!
           </p>
           <div className="flex items-end gap-6">
             <img src="/footer-cherry.png" alt="" className="w-24 h-24 object-contain animate-wiggle self-end" />
