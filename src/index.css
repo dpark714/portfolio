@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Crimson+Pro:wght@300&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────
+   Typography Design System
+   ─────────────────────────────────────────
+   Outfit (font-sans)  — reading / UI
+   IBM Plex Mono       — labels / meta
+
+   Scale:
+     type-display    page title        40px
+     type-headline   HMW / callout     3xl → 5xl
+     type-title      card / name       lg → xl
+     type-body-lg    hero subtitle     20px
+     type-body       standard body     16px
+     type-body-sm    secondary body    14px
+     type-stat       big numbers       4xl → 5xl
+     type-label      mono label        12px + uppercase + tracking
+     type-caption    mono caption      12px + uppercase + tracking
+     type-tag        mono inline tag   sm
+   ───────────────────────────────────────── */
+@layer components {
+  .type-display  { @apply font-sans font-normal  text-[40px] leading-tight; }
+  .type-headline { @apply font-sans font-semibold text-3xl md:text-5xl leading-snug; }
+  .type-title    { @apply font-sans font-medium  text-lg   md:text-xl; }
+  .type-body-lg  { @apply font-sans text-xl      leading-relaxed; }
+  .type-body     { @apply font-sans text-base    leading-relaxed; }
+  .type-body-sm  { @apply font-sans text-sm      leading-relaxed; }
+  .type-stat     { @apply font-sans font-light   text-4xl  md:text-5xl; }
+  .type-label    { @apply font-mono text-xs      uppercase tracking-widest; }
+  .type-caption  { @apply font-mono text-xs      uppercase tracking-widest; }
+  .type-tag      { @apply font-mono text-sm; }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.animate-wiggle {
+  animation: wiggle 1.6s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob {
+  animation: blob 10s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
