@@ -7,7 +7,7 @@ export default function Footer() {
 
         {/* Top: message left, links right */}
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
-          <p className="font-['Outfit'] font-light text-white/80 leading-relaxed max-w-2xl" style={{ fontSize: '30px' }}>
+          <p className="font-['Outfit'] font-light text-xl md:text-[30px] text-white/80 leading-relaxed max-w-2xl">
             Thanks for making it this far down the page.<br />I hope we can go even further together!
           </p>
           <div className="flex items-end gap-6">
