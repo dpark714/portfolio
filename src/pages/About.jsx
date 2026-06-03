@@ -55,10 +55,13 @@ export default function About() {
             <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Who am I?</p>
             <div className="flex flex-col gap-5">
               <p className="font-sans text-base text-gray-600 leading-relaxed">
-                Hi there! I'm Dahyeon. Growing up in South Korea, I was the kid who was always curious about everything — telling everyone I wanted to be a dentist one day, a firefighter the next, and a dancer the day after. My dream was always something new and different.
+                Hi there! I'm Dahyeon. Growing up in South Korea, I was the kid who changed career dreams every other week. One day I wanted to be a dentist, the next a fashion designer, and then a dancer. Looking back, none of those dreams really stuck but the curiosity behind them did.
               </p>
               <p className="font-sans text-base text-gray-600 leading-relaxed">
-                I got my bachelor's in Computer Science at The City College of New York in the States. I appreciated the technical foundation, but I always felt I was missing the creative side. Now I'm here in Germany pursuing a Master's in User Experience Design at TH Ingolstadt. I care about the details that make digital experiences feel human: the right timing, the right weight, the right words. When I'm not designing, you'll find me brewing coffee, shooting on film, running, or baking.
+                I moved to New York to broaden my perspective. I studied Computer Science at The City College of New York. During my time there, I worked as a full-stack developer intern, joined the Cornell Break Through Tech program, and collaborated with people from different disciplines. Living abroad on my own also taught me resilience, adaptability, and how much growth can come from stepping out of my comfort zone.
+              </p>
+              <p className="font-sans text-base text-gray-600 leading-relaxed">
+                As I worked more closely with front-end development, I became increasingly curious about the people behind the screens. I found myself drawn to the creative and human side of technology. Today, I'm pursuing a Master's in User Experience Design at TH Ingolstadt in Germany. I enjoy designing experiences that feel meaningful and human. Behind the screens, you'll usually find me brewing coffee, running, or baking.
               </p>
             </div>
           </div>
@@ -82,9 +85,17 @@ export default function About() {
         {/* Design process */}
         <section className="flex flex-col gap-6 max-w-2xl">
           <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">What is my design process</p>
-          <p className="font-sans text-base text-gray-600 leading-relaxed">
-            My design process usually starts a bit messy. I try to understand the problem or needs, but I don't keep digging until I have perfect clarity. I treat the process as iterative rather than linear — I often go back and forth, adjusting things based on feedback or new insights, especially to really see how the design actually works in a real context. Overall, at the end of the day, what I'd like to make sure is that I design an experience that works as a whole.
-          </p>
+          <div className="flex flex-col gap-5">
+            <p className="font-sans text-base text-gray-600 leading-relaxed">
+              My design process starts with curiosity. I begin by understanding the problem and the people behind it, then explore ideas early rather than waiting for perfect clarity.
+            </p>
+            <p className="font-sans text-base text-gray-600 leading-relaxed">
+              I see design as an iterative process rather than a linear one. I move between researching, making, testing, and refining, using feedback and new insights to guide each step. Often, the most valuable discoveries come from seeing how a design works in a real context.
+            </p>
+            <p className="font-sans text-base text-gray-600 leading-relaxed">
+              I enjoy exploring the intersection of user needs, business objectives. At the end of the day, my goal is to design experiences that work as a whole.
+            </p>
+          </div>
         </section>
 
       </div>

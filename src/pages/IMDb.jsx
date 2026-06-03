@@ -284,7 +284,7 @@ export default function IMDb() {
 
           <div id="problem" className="mb-20">
             <Label>Problem</Label>
-            <p className="type-headline text-yellow-500 text-center">
+            <p className="type-display font-semibold text-yellow-500 text-center">
               Users struggle to discover and engage with IMDb's personalized features, leaving their experience passive and surface-level.
             </p>
           </div>

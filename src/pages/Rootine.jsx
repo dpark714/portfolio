@@ -244,7 +244,7 @@ export default function Rootine() {
           {/* ── Problem ── */}
           <div id="problem" className="mb-20">
             <Label>Problem</Label>
-            <p className="type-headline text-blue-500 text-center">
+            <p className="type-display font-semibold text-green-600 text-center">
               How might we help people build consistent to-do list habits that feel manageable & not overwhelming, while still gaining a real sense of achievement?
             </p>
           </div>
