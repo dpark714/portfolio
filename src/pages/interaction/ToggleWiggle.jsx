@@ -5,17 +5,17 @@ import Navbar from '../../components/Navbar.jsx';
 const variants = [
   {
     name: 'Standard',
-    src: '/Standard.mov',
+    src: '/interaction/toggle-wiggle/standard.mov',
     description: 'It allows users to quickly switch a setting on or off with a simple tap, making interaction fast and intuitive.',
   },
   {
     name: 'Exaggerated',
-    src: '/Exaggerated.mov',
+    src: '/interaction/toggle-wiggle/exaggerated.mov',
     description: 'The knob is inspired by a ball, exaggerating its motion to feel more dynamic and playful. When activated, the switch bounces back into place, emphasizing elasticity and momentum feedback.',
   },
   {
     name: 'Surprised',
-    src: '/Surprised.mov',
+    src: '/interaction/toggle-wiggle/surprised.mov',
     description: 'The toggle transforms into a pair of binoculars that "pop open" in surprise when activated, using sudden expansion and eye-like motion to convey curiosity and discovery. The eyes track the user\'s cursor to make it more engaged.',
   },
 ];

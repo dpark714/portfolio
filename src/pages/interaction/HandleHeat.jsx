@@ -3,9 +3,9 @@ import { ArrowLeft } from 'lucide-react';
 import Navbar from '../../components/Navbar.jsx';
 
 const stoveStates = [
-  { label: 'Heating Up', src: '/heatingUp.mp4', desc: 'Pan is on and actively heating. The interface responds with a gradual glow intensity.' },
-  { label: 'Changing', src: '/changing.mp4', desc: 'Pan moves between burners. The system tracks position and transfers the heat state.' },
-  { label: 'Warning', src: '/warning.mp4', desc: 'Emergency state: overflowing or burning triggers an urgent visual and haptic alert.' },
+  { label: 'Heating Up', src: '/interaction/handle-heat/heating-up.mp4', desc: 'Pan is on and actively heating. The interface responds with a gradual glow intensity.' },
+  { label: 'Changing', src: '/interaction/handle-heat/changing.mp4', desc: 'Pan moves between burners. The system tracks position and transfers the heat state.' },
+  { label: 'Warning', src: '/interaction/handle-heat/warning.mp4', desc: 'Emergency state: overflowing or burning triggers an urgent visual and haptic alert.' },
 ];
 
 export default function HandleHeat() {
@@ -56,7 +56,7 @@ export default function HandleHeat() {
         <div className="space-y-4">
           <span className="type-label text-orange-400">Overview</span>
           <div className="rounded-2xl overflow-hidden bg-[#111] w-full aspect-video">
-            <video src="/overviewOfPan.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+            <video src="/interaction/handle-heat/overview-of-pan.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
           </div>
         </div>
 
@@ -68,10 +68,10 @@ export default function HandleHeat() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-2xl overflow-hidden bg-[#111] aspect-[4/3]">
-              <video src="/cameraDial.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              <video src="/interaction/handle-heat/camera-dial.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
             </div>
             <div className="rounded-2xl overflow-hidden bg-[#111] aspect-[4/3]">
-              <video src="/zoomedInPan.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              <video src="/interaction/handle-heat/zoomed-in-pan.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function HandleHeat() {
             An LED ring on the pan rim reflects the current heat level in real time. LEDs beneath the pan illuminate to confirm active burner connection. Color and animation adapt to heat intensity, shifting from a slow pulse at low heat to a rapid flicker at high.
           </p>
           <div className="rounded-2xl overflow-hidden w-full">
-            <img src="/pansOnStove.png" alt="Pans on stove layout" className="w-full h-full object-cover" />
+            <img src="/interaction/handle-heat/pans-on-stove.png" alt="Pans on stove layout" className="w-full h-full object-cover" />
           </div>
         </div>
 

@@ -22,7 +22,7 @@ const projects = [
   {
     id: 'interaction',
     title: 'Interaction Design',
-    image: '/ID-thumnail.png',
+    image: '/interaction/thumbnail.png',
   }
 ];
 
@@ -532,7 +532,7 @@ function MainLayout() {
 
             <Link to="/interaction-design">
               <BentoCard title="Interaction Design" className="h-[480px]" tags={['Current']} bg="#FAF4FF">
-                <img src="/ID-thumnail.png" alt="Interaction Design" className="absolute inset-0 w-full h-full object-contain z-10" />
+                <img src="/interaction/thumbnail.png" alt="Interaction Design" className="absolute inset-0 w-full h-full object-contain z-10" />
               </BentoCard>
             </Link>
           </div>
@@ -554,7 +554,7 @@ function MainLayout() {
             <div className="flex gap-6 lg:gap-8">
               <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUM Design', 'UXUI', 'B2B', 'Web']}>
                 <div className="absolute inset-0 z-0" style={{ backgroundColor: '#DFECFC' }} />
-                <img src="/fintaloThumbnail.png" alt="Fintalo" className="absolute inset-0 w-full h-full object-contain z-10" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }} />
+                <img src="/fintalo/thumbnail.png" alt="Fintalo" className="absolute inset-0 w-full h-full object-contain z-10" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }} />
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/40 backdrop-blur-[2px]">
                   <span className="font-mono text-xs text-primary/50 tracking-widest uppercase">Coming Soon</span>
                 </div>
