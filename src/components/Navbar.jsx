@@ -19,7 +19,7 @@ export default function Navbar({ sticky = true }) {
           Work
         </a>
         <a
-          href="https://drive.google.com/file/d/1hhgcXYfl_r3fcbY74fy7RaSZj_HnBLTs/view?usp=sharing"
+          href="https://drive.google.com/file/d/1qXi_y5yIRCkUOBl626n6Qm6kEgaNMCBw/view?usp=sharing"
           target="_blank"
           rel="noreferrer"
           className="font-mono text-sm uppercase tracking-widest text-primary hover:opacity-40 transition-opacity flex items-center gap-1"
