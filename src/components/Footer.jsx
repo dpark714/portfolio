@@ -10,7 +10,7 @@ export default function Footer() {
           <p className="font-['Outfit'] font-light text-xl md:text-[30px] text-white/80 leading-relaxed max-w-2xl">
             Thanks for making it this far down the page.<br />I hope we can go even further together!
           </p>
-          <div className="flex items-end gap-6">
+          <div className="flex items-end gap-6 self-end md:self-auto">
             <img src="/footer-cherry.png" alt="" className="w-24 h-24 object-contain animate-wiggle self-end" />
             <div className="flex flex-col gap-3">
               <a

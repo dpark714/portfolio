@@ -6,7 +6,7 @@ const interests = [
   {
     id: 'coffee',
     title: 'Coffee',
-    description: 'I love good coffee to drink and make',
+    description: "These are some of my proudest latte art creations (and many failed attempts behind them)! It's fun seeing small improvements over time and experimenting. I'm always surprised by how a simple cup of coffee can be much more than just something to drink.",
     images: [
       '/coffee/IMG_3412.jpeg',
       '/coffee/IMG_2342.jpeg',
@@ -17,7 +17,7 @@ const interests = [
   {
     id: 'camera',
     title: 'Film',
-    description: "I sometimes shoot on film cameras. Since I can't see the results right away, it makes me more intentional with every shot",
+    description: "I like to take photos or videos of some moments, especially with a film camera. Since I can't see the result right away, it makes me more intentional with every shot. I enjoy making a short video with some of my favorite songs and sharing it with friends.",
     images: [
       '/camera/IMG_5303.JPG',
       '/camera/IMG_5306.JPG',
@@ -28,7 +28,7 @@ const interests = [
   {
     id: 'bread',
     title: 'Bread',
-    description: 'I like baking for friends, and living in Germany means good bread is basically part of the lifestyle',
+    description: "I enjoy baking for friends, and living in Germany means good bread is basically part of the lifestyle. I'm always on the lookout for a great sourdough, so if you have any recommendations, I'd love to hear them! (I wish I had baked the loaf in the first picture haha)",
     images: [
       '/bread/IMG_3716.jpeg',
       '/bread/IMG_6273.jpeg',
@@ -50,7 +50,7 @@ export default function About() {
       <div className="px-6 md:px-16 pt-28 pb-20 max-w-[1200px] mx-auto flex flex-col gap-20">
 
         {/* Bio */}
-        <section className="flex flex-col md:flex-row gap-10 md:gap-14 lg:gap-16 items-start">
+        <section className="flex flex-col-reverse md:flex-row gap-10 md:gap-14 lg:gap-16 items-start">
           <div className="flex-1 flex flex-col gap-6">
             <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Who am I?</p>
             <div className="flex flex-col gap-5">

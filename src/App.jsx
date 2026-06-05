@@ -36,7 +36,7 @@ function Background() {
 
 export function BentoCard({ children, className = '', title, tags, bg = '#F9F9F9' }) {
   return (
-    <div className={`relative group rounded-xl overflow-hidden flex flex-col shadow-lg border border-gray-100 ${className}`}>
+    <div className={`relative group rounded-xl overflow-hidden flex flex-col shadow-lg border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ${className}`}>
       {/* Header */}
       <div className="h-10 flex items-center justify-center bg-white z-30 relative shrink-0">
         <h2 className="font-mono text-sm tracking-tight text-primary font-normal">{title}</h2>
@@ -526,9 +526,12 @@ function MainLayout() {
       <section id="work" className="px-10 md:px-32 pb-32 max-w-[1600px] mx-auto w-full">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
 
-          {/* Left Column (35%) */}
+          {/* Left Column (35%) — desktop only content */}
           <div className="w-full lg:w-[35%] flex flex-col gap-6 lg:gap-8 fade-up">
-            <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={(g) => setGuests(prev => prev.length >= MAX_GUESTS ? [g] : [...prev, g])} />
+            {/* Desktop only — on mobile shown at the end */}
+            <div className="hidden lg:block">
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={(g) => setGuests(prev => prev.length >= MAX_GUESTS ? [g] : [...prev, g])} />
+            </div>
             {/* Desktop only — on mobile this is shown after IMDb in right column */}
             <Link to="/interaction-design" className="hidden lg:block">
               <BentoCard title="Interaction Design" className="h-[480px]" tags={['Current']} bg="#FAF4FF">
@@ -574,6 +577,11 @@ function MainLayout() {
                 </div>
               </BentoCard>
             </div>
+
+            {/* Mobile only — Who are you at the end */}
+            <div className="lg:hidden">
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={(g) => setGuests(prev => prev.length >= MAX_GUESTS ? [g] : [...prev, g])} />
+            </div>
           </div>
 
         </div>
@@ -597,7 +605,7 @@ function MainLayout() {
           Guestbook
         </h2>
         <div
-          className="w-full min-h-[400px] relative p-4 sm:p-8 md:p-12 flex flex-wrap gap-4 sm:gap-8 md:gap-12 items-center justify-center bg-[#fdfdfd] border-4 border-gray-100 rounded-xl shadow-sm overflow-hidden"
+          className="w-full min-h-[200px] md:min-h-[400px] relative p-4 sm:p-8 md:p-12 flex flex-wrap gap-4 sm:gap-8 md:gap-12 items-center justify-center bg-[#fdfdfd] border-4 border-gray-100 rounded-xl shadow-sm overflow-hidden"
           style={{
             backgroundImage: 'linear-gradient(90deg, #d4d4d4 2px, transparent 2px), linear-gradient(#d4d4d4 2px, transparent 2px)',
             backgroundSize: '100px 100px',

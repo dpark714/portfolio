@@ -16,7 +16,7 @@ export default function HandleHeat() {
       <Navbar sticky={false} />
       <button
         onClick={() => navigate('/interaction-design')}
-        className="fixed top-24 left-6 z-50 flex items-center gap-2 bg-white/70 backdrop-blur-md rounded-full px-4 py-2 text-sm font-mono hover:bg-white transition-colors border border-white/50"
+        className="fixed top-24 left-6 z-50 flex items-center gap-2 bg-white/70 backdrop-blur-md rounded-full px-4 py-2 text-sm font-mono hover:bg-gray-200 active:bg-gray-300 active:scale-95 transition-all duration-150 border border-white/50"
       >
         <ArrowLeft className="w-4 h-4" />
         Back

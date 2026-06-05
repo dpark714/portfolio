@@ -46,7 +46,7 @@ export default function InteractionDesign() {
             <Link
               key={p.href}
               to={p.href}
-              className="group flex flex-col md:flex-row md:items-center gap-6 border-t border-black/10 py-10 hover:opacity-70 transition-opacity"
+              className="group flex flex-col md:flex-row md:items-center gap-6 border-t border-black/10 py-10 hover:bg-black/[0.04] px-4 -mx-4 rounded-2xl transition-colors duration-200"
             >
               {/* Preview thumbnail */}
               <div className="w-full md:w-56 h-36 rounded-xl overflow-hidden bg-[#1c1c1e] shrink-0">
