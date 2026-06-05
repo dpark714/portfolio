@@ -41,7 +41,7 @@ export default function InteractionDesign() {
         </div>
 
         {/* Project list */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           {projects.map((p) => (
             <div key={p.href} className="border-b border-black/10">
             <Link
