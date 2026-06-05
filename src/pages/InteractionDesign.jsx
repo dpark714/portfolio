@@ -41,12 +41,12 @@ export default function InteractionDesign() {
         </div>
 
         {/* Project list */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
           {projects.map((p) => (
+            <div key={p.href} className="border-b border-black/10">
             <Link
-              key={p.href}
               to={p.href}
-              className="group flex flex-col md:flex-row md:items-center gap-6 border-t border-black/10 py-10 hover:bg-black/[0.04] px-4 -mx-4 rounded-2xl transition-colors duration-200"
+              className="group flex flex-col md:flex-row md:items-center gap-6 py-10 hover:bg-black/[0.04] px-4 -mx-4 rounded-2xl transition-colors duration-200"
             >
               {/* Preview thumbnail */}
               <div className="w-full md:w-56 h-36 rounded-xl overflow-hidden bg-[#1c1c1e] shrink-0">
@@ -70,10 +70,8 @@ export default function InteractionDesign() {
               {/* Arrow */}
               <ArrowUpRight className="w-5 h-5 text-gray-300 shrink-0 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all hidden md:block" />
             </Link>
+            </div>
           ))}
-
-          {/* Bottom border */}
-          <div className="border-t border-black/10" />
         </div>
 
       </div>

@@ -11,7 +11,7 @@ export default function Footer() {
             Thanks for making it this far down the page.<br />I hope we can go even further together!
           </p>
           <div className="flex items-end gap-6 self-end md:self-auto">
-            <img src="/footer-cherry.png" alt="" className="w-24 h-24 object-contain animate-wiggle self-end" />
+            <img src="/footer-cherry.png" alt="" className="w-28 h-28 sm:w-36 sm:h-36 object-contain animate-wiggle self-end" />
             <div className="flex flex-col gap-3">
               <a
                 href="https://www.linkedin.com/in/dahyeon-park/"

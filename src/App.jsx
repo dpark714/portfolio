@@ -263,7 +263,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="text-center font-sans font-medium text-base md:text-lg bg-gray-100/80 rounded-full py-2.5 px-6 w-full max-w-xs focus:outline-none transition-all text-gray-700 placeholder:text-gray-400"
+            className="text-center font-sans font-medium text-base md:text-lg bg-gray-100/80 rounded-full py-2.5 px-6 w-full max-w-xs focus:outline-none transition-all text-gray-700 placeholder:text-gray-400 focus:placeholder:text-transparent"
             placeholder="Dahyeon"
           />
         </div>
@@ -543,7 +543,7 @@ function MainLayout() {
           {/* Right Column (65%) */}
           <div className="w-full lg:w-[65%] flex flex-col gap-6 lg:gap-8 fade-up">
             <Link to="/rootine">
-              <BentoCard title="Rootine" className="h-[400px]" tags={['End-to-end', 'UXUI', 'Mobile']}>
+              <BentoCard title="Rootine" className="h-[400px]" tags={['End-to-end', 'UXUI']}>
                 <img src={projects[0].image} alt="Rootine" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
               </BentoCard>
             </Link>
@@ -562,7 +562,7 @@ function MainLayout() {
             </Link>
 
             <div className="flex gap-6 lg:gap-8">
-              <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUM Design', 'UXUI', 'B2B', 'Web']}>
+              <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUM Design', 'UXUI', 'B2B']}>
                 <div className="absolute inset-0 z-0" style={{ backgroundColor: '#DFECFC' }} />
                 <img src="/fintalo/thumbnail.png" alt="Fintalo" className="absolute inset-0 w-full h-full object-contain z-10" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }} />
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/40 backdrop-blur-[2px]">
@@ -588,7 +588,7 @@ function MainLayout() {
       </section>
 
       {/* Divider */}
-      <div className="w-full py-16 px-10 md:px-32 max-w-[1600px] mx-auto fade-up">
+      <div className="w-full pt-0 pb-16 px-10 md:px-32 max-w-[1600px] mx-auto fade-up">
         <div
           className="w-full h-[1px] opacity-60 text-gray-900"
           style={{

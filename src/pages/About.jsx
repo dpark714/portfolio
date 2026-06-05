@@ -28,7 +28,7 @@ const interests = [
   {
     id: 'bread',
     title: 'Bread',
-    description: "I enjoy baking for friends, and living in Germany means good bread is basically part of the lifestyle. I'm always on the lookout for a great sourdough, so if you have any recommendations, I'd love to hear them! (I wish I had baked the loaf in the first picture haha)",
+    description: "I enjoy baking for friends, and living in Germany means good bread is basically part of the lifestyle. I'm always on the lookout for a great sourdough, so if you have any recommendations, I'd love to hear them! (I wish I baked the loaf in the first picture haha)",
     images: [
       '/bread/IMG_3716.jpeg',
       '/bread/IMG_6273.jpeg',
@@ -46,8 +46,23 @@ export default function About() {
     <div className="min-h-screen bg-white font-sans text-primary selection:bg-yellow-200">
       <Navbar sticky={false} />
 
+      {/* Greeting */}
+      <div className="px-6 md:px-16 pt-28 max-w-[1200px] mx-auto flex flex-col items-center">
+        <p className="font-['Outfit'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary text-center">
+          Hi! Nice to meet you{' '}
+          <span className="inline-block align-middle ml-2 animate-spin-slow">
+            <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" fill="currentColor" />
+              <circle cx="35" cy="42" r="7" fill="white" />
+              <circle cx="65" cy="42" r="7" fill="white" />
+              <path d="M28 62 Q50 82 72 62" stroke="white" strokeWidth="8" strokeLinecap="round" fill="none" />
+            </svg>
+          </span>
+        </p>
+      </div>
+
       {/* Bio + Design process */}
-      <div className="px-6 md:px-16 pt-28 pb-20 max-w-[1200px] mx-auto flex flex-col gap-20">
+      <div className="px-6 md:px-16 pt-16 pb-20 max-w-[1200px] mx-auto flex flex-col gap-20">
 
         {/* Bio */}
         <section className="flex flex-col-reverse md:flex-row gap-10 md:gap-14 lg:gap-16 items-start">
@@ -67,7 +82,7 @@ export default function About() {
           </div>
 
           {/* Country photo collage */}
-          <div className="w-full md:w-[260px] lg:w-[340px] shrink-0 flex flex-col gap-2">
+          <div className="w-[220px] sm:w-[260px] md:w-[260px] lg:w-[340px] shrink-0 flex flex-col gap-2 mx-auto md:mx-0">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100">
               <img src="/country/USA.JPG" alt="United States" className="w-full h-full object-cover" />
             </div>
