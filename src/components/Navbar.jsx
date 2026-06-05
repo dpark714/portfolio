@@ -11,7 +11,7 @@ export default function Navbar({ sticky = true }) {
       </Link>
 
       {/* Nav links — centered */}
-      <div className="flex-1 flex items-center justify-center gap-4 md:gap-12">
+      <div className="flex-1 flex items-center justify-center gap-6 md:gap-12">
         <Link to="/about" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
           About
         </Link>
@@ -28,8 +28,8 @@ export default function Navbar({ sticky = true }) {
         </a>
       </div>
 
-      {/* Social icons — far right, hidden on mobile */}
-      <div className="shrink-0 hidden md:flex items-center gap-5">
+      {/* Social icons — LinkedIn always visible, email desktop only */}
+      <div className="shrink-0 flex items-center gap-4 md:gap-5">
         <a
           href="https://www.linkedin.com/in/dahyeon-park/"
           target="_blank"
@@ -45,7 +45,7 @@ export default function Navbar({ sticky = true }) {
         </a>
         <a
           href="mailto:dahyeon714@gmail.com"
-          className="flex items-center justify-center text-primary hover:text-[#EE0002] transition-colors"
+          className="hidden md:flex items-center justify-center text-primary hover:text-[#EE0002] transition-colors"
           aria-label="Email"
         >
           <AtSign className="w-5 h-5" strokeWidth={1.5} />

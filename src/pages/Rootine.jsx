@@ -189,7 +189,7 @@ export default function Rootine() {
                 <p className="type-stat text-primary shrink-0">47%</p>
                 <div className="w-px h-8 bg-black/8 shrink-0" />
                 <div>
-                  <p className="type-caption text-gray-400 mb-0.5">Desk Research</p>
+                  <p className="font-mono text-[9px] uppercase tracking-wide text-gray-400 mb-0.5">Desk Research</p>
                   <p className="type-body-sm text-gray-500 leading-snug">of people carry lengthy to-do lists (APA)</p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default function Rootine() {
                 <p className="type-stat text-primary shrink-0">25%</p>
                 <div className="w-px h-8 bg-black/8 shrink-0" />
                 <div>
-                  <p className="type-caption text-gray-400 mb-0.5">In-depth Interviews · 8 professionals</p>
+                  <p className="font-mono text-[9px] uppercase tracking-wide text-gray-400 mb-0.5">In-depth Interviews · 8 professionals</p>
                   <p className="type-body-sm text-gray-500 leading-snug">actually finish their daily list</p>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export default function Rootine() {
           {/* ── Problem ── */}
           <div id="problem" className="mb-20">
             <Label>Problem</Label>
-            <p className="type-display font-semibold text-green-600 text-center">
+            <p className="font-sans font-semibold text-2xl md:text-[40px] leading-tight text-green-600 text-center">
               How might we help people build consistent to-do list habits that feel manageable & not overwhelming, while still gaining a real sense of achievement?
             </p>
           </div>
@@ -252,8 +252,8 @@ export default function Rootine() {
           {/* ── User Persona ── */}
           <div id="persona" className="mb-20">
             <Label>User Persona</Label>
-            <div className="rounded-2xl bg-white p-8 md:p-10 flex flex-col md:flex-row md:items-start gap-8">
-              <img src="/rootine/persona.png" alt="Hailey Lee" className="w-36 h-36 md:w-44 md:h-44 shrink-0 rounded-full object-cover" />
+            <div className="rounded-2xl bg-white p-6 md:p-10 flex flex-row items-start gap-5 md:gap-8">
+              <img src="/rootine/persona.png" alt="Hailey Lee" className="w-20 h-20 md:w-44 md:h-44 shrink-0 rounded-full object-cover" />
               <div className="flex flex-col gap-4 flex-1 min-w-0">
                 <div className="flex items-baseline gap-3">
                   <p className="font-sans font-medium text-lg text-primary">Hailey Lee</p>
@@ -312,7 +312,7 @@ export default function Rootine() {
             {/* Character description */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10 mb-8">
               <p className="type-label text-gray-400 pt-1">Brand Identity</p>
-              <p className="type-body text-gray-500 text-right">
+              <p className="type-body text-gray-500 text-left md:text-right">
                 Inspired by the growth cycle of a seed: planting, rooting, and sprouting.<br />Each character reflects the depth and consistency of the user's daily actions.
               </p>
             </div>

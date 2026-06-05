@@ -227,8 +227,8 @@ export default function IMDb() {
                 ))}
               </div>
               <div className="columns-1 sm:columns-2 md:columns-3 gap-x-10">
-                {voiceOfCustomer.flatMap(g => g.quotes).map((quote) => (
-                  <p key={quote} className="font-sans italic text-gray-400 text-sm mb-5 break-inside-avoid">
+                {voiceOfCustomer.flatMap(g => g.quotes).map((quote, index) => (
+                  <p key={quote} className={`font-sans italic text-gray-400 text-sm mb-5 break-inside-avoid ${index >= 5 ? 'hidden sm:block' : ''}`}>
                     &ldquo;{quote}&rdquo;
                   </p>
                 ))}
@@ -284,7 +284,7 @@ export default function IMDb() {
 
           <div id="problem" className="mb-20">
             <Label>Problem</Label>
-            <p className="type-display font-semibold text-yellow-500 text-center">
+            <p className="font-sans font-semibold text-2xl md:text-[40px] leading-tight text-yellow-500 text-center">
               Users struggle to discover and engage with IMDb's personalized features, leaving their experience passive and surface-level.
             </p>
           </div>

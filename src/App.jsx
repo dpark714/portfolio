@@ -272,7 +272,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
         <div className="w-full bg-gray-100 rounded-xl p-4 flex flex-col gap-5 mt-1">
 
           {/* Top Row: Selectors */}
-          <div className="flex justify-around items-center px-0">
+          <div className="flex justify-between items-center px-4 md:px-2">
 
             {/* Animal/Head */}
             <div className="flex flex-col items-center gap-2">
