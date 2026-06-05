@@ -517,7 +517,7 @@ function MainLayout() {
             <span className="bg-yellow-200 px-1">exploring how design shapes human behavior</span>
           </p>
           <p className="text-base md:text-lg font-['Crimson_Pro'] font-normal opacity-80 pt-4">
-            Currently doing my Master's in User Experience Design at TH Ingolstadt in Germany
+            Currently pursuing a Master's in User Experience Design at Technische Hochschule Ingolstadt in Germany
           </p>
         </div>
       </section>
