@@ -38,7 +38,7 @@ export default function ToggleWiggle() {
 
         {/* Header */}
         <div>
-          <div className="flex items-baseline justify-between border-t border-black/10 pt-6 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-8">
             <div className="flex items-baseline gap-4">
               <span className="type-tag text-gray-400">01</span>
               <span className="type-label text-gray-400">Animated button</span>

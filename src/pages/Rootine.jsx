@@ -252,17 +252,60 @@ export default function Rootine() {
           {/* ── User Persona ── */}
           <div id="persona" className="mb-20">
             <Label>User Persona</Label>
-            <div className="rounded-2xl bg-white p-6 md:p-10 flex flex-row items-start gap-5 md:gap-8">
-              <img src="/rootine/persona.png" alt="Hailey Lee" className="w-20 h-20 md:w-44 md:h-44 shrink-0 rounded-full object-cover" />
-              <div className="flex flex-col gap-4 flex-1 min-w-0">
-                <div className="flex items-baseline gap-3">
-                  <p className="font-sans font-medium text-lg text-primary">Hailey Lee</p>
-                  <span className="font-mono text-xs text-gray-400">31 · HR Coordinator</span>
+            <div className="rounded-2xl bg-white p-6 md:p-10">
+              {/* Header row: image + name (always side by side) */}
+              <div className="flex flex-row items-start gap-5 md:gap-8">
+                <img src="/rootine/persona.png" alt="Hailey Lee" className="w-20 h-20 md:w-44 md:h-44 shrink-0 rounded-full object-cover" />
+                <div className="flex flex-col gap-1 md:gap-4 flex-1 min-w-0">
+                  <div className="flex items-start justify-between md:items-baseline md:justify-start md:gap-3">
+                    <p className="font-sans font-medium text-lg text-primary">
+                      <span className="md:hidden">Hailey</span>
+                      <span className="hidden md:inline">Hailey Lee</span>
+                    </p>
+                    <div className="font-mono text-xs text-gray-400 text-right">
+                      <span className="hidden md:inline">31 · HR Coordinator</span>
+                      <span className="md:hidden leading-relaxed">31<br />HR Coordinator</span>
+                    </div>
+                  </div>
+                  {/* Desktop: quote + bullets inline with image */}
+                  <div className="hidden md:flex flex-col gap-4">
+                    <p className="type-body text-gray-500 italic">
+                      "I want a meaningful day with doable goals, not one packed with unrealistic plans."
+                    </p>
+                    <div className="flex flex-wrap gap-10 pt-2 border-t border-black/8 mt-2">
+                      <div>
+                        <p className="type-label text-gray-400 mb-2">Pain Points</p>
+                        <ul className="list-disc list-inside flex flex-col gap-1">
+                          <li className="type-body-sm text-gray-500">Task overload</li>
+                          <li className="type-body-sm text-gray-500">Guilt from unfinished lists</li>
+                          <li className="type-body-sm text-gray-500">No sense of progress</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="type-label text-gray-400 mb-2">Goals</p>
+                        <ul className="list-disc list-inside flex flex-col gap-1">
+                          <li className="type-body-sm text-gray-500">Feel accomplished at end of day</li>
+                          <li className="type-body-sm text-gray-500">Build consistent habits</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="type-label text-gray-400 mb-2">Priorities</p>
+                        <ul className="list-disc list-inside flex flex-col gap-1">
+                          <li className="type-body-sm text-gray-500">Emotional Well-being</li>
+                          <li className="type-body-sm text-gray-500">Minimalism</li>
+                          <li className="type-body-sm text-gray-500">Personal Growth</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              {/* Mobile: quote + bullets full width below header */}
+              <div className="md:hidden mt-4 flex flex-col gap-4">
                 <p className="type-body text-gray-500 italic">
                   "I want a meaningful day with doable goals, not one packed with unrealistic plans."
                 </p>
-                <div className="flex flex-wrap gap-10 pt-2 border-t border-black/8 mt-2">
+                <div className="flex flex-col gap-6 pt-2 border-t border-black/8 mt-2">
                   <div>
                     <p className="type-label text-gray-400 mb-2">Pain Points</p>
                     <ul className="list-disc list-inside flex flex-col gap-1">

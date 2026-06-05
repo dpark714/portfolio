@@ -26,7 +26,7 @@ export default function HandleHeat() {
 
         {/* Header */}
         <div>
-          <div className="flex items-baseline justify-between border-t border-black/10 pt-6 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-8">
             <div className="flex items-baseline gap-4">
               <span className="type-tag text-gray-400">02</span>
               <span className="type-label text-gray-400">Stove Heat Control</span>
