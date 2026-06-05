@@ -264,7 +264,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             className="text-center font-sans font-medium text-base md:text-lg bg-gray-100/80 rounded-full py-2.5 px-6 w-full max-w-xs focus:outline-none transition-all text-gray-700 placeholder:text-gray-400"
-            placeholder="dahyeon"
+            placeholder="Dahyeon"
           />
         </div>
 
@@ -272,7 +272,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
         <div className="w-full bg-gray-100 rounded-xl p-4 flex flex-col gap-5 mt-1">
 
           {/* Top Row: Selectors */}
-          <div className="flex justify-between items-center px-4 md:px-2">
+          <div className="flex justify-evenly items-center">
 
             {/* Animal/Head */}
             <div className="flex flex-col items-center gap-2">
@@ -280,7 +280,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
                 <button className="absolute -left-3 z-10 w-5 h-5 bg-gray-300 hover:bg-gray-400 text-white rounded-full flex items-center justify-center transition-colors" onClick={() => prevItem(setAnimal, 5)}>
                   <ChevronLeft className="w-3 h-3 -ml-0.5" />
                 </button>
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center relative overflow-hidden">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     {renderAvatar(animal, 0, 0, 0.5, true)}
                   </div>
@@ -298,7 +298,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
                 <button className="absolute -left-3 z-10 w-5 h-5 bg-gray-300 hover:bg-gray-400 text-white rounded-full flex items-center justify-center transition-colors" onClick={() => prevItem(setExpression, 5)}>
                   <ChevronLeft className="w-3 h-3 -ml-0.5" />
                 </button>
-                <div className="w-16 h-16 bg-[#111] rounded-full flex items-center justify-center relative">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-[#111] rounded-full flex items-center justify-center relative">
                   <div className="transform scale-[0.85]">
                     {renderExpression(expression)}
                   </div>
@@ -316,7 +316,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
                 <button className="absolute -left-3 z-10 w-5 h-5 bg-gray-300 hover:bg-gray-400 text-white rounded-full flex items-center justify-center transition-colors" onClick={() => prevItem(setAccessory, 5)}>
                   <ChevronLeft className="w-3 h-3 -ml-0.5" />
                 </button>
-                <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-full relative overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div style={{ transform: 'scale(0.38)', transformOrigin: 'center center' }}>
                       {renderAvatar(0, 0, accessory, 1, false)}
