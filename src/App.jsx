@@ -513,7 +513,7 @@ function MainLayout() {
         <div className="font-['Outfit'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
           <p className="opacity-90">{greeting}</p>
           <p className="max-w-3xl leading-snug md:leading-normal">
-            My name is Dahyeon, a UIUX designer<br />
+            My name is Dahyeon, a UIUX designer<br className="hidden md:block" />
             <span className="bg-yellow-200 px-1">exploring how design shapes human behavior</span>
           </p>
           <p className="text-base md:text-lg font-['Crimson_Pro'] font-normal opacity-80 pt-4">

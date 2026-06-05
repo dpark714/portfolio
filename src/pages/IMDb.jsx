@@ -162,9 +162,9 @@ export default function IMDb() {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-28 sm:pt-32 pb-24 sm:pb-32">
 
         <div className="mb-12">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
             <h1 className="type-display text-primary">IMDb Redesign</h1>
-            <div className="flex gap-2 pt-1">
+            <div className="flex flex-wrap gap-2 pt-1">
               {['Redesign', 'UXUI'].map(tag => (
                 <span key={tag} className="type-tag text-xs px-2.5 py-1 rounded-full bg-black/8 text-gray-500 border border-black/10">
                   {tag}
@@ -226,7 +226,7 @@ export default function IMDb() {
                   </span>
                 ))}
               </div>
-              <div className="columns-2 md:columns-3 gap-x-10">
+              <div className="columns-1 sm:columns-2 md:columns-3 gap-x-10">
                 {voiceOfCustomer.flatMap(g => g.quotes).map((quote) => (
                   <p key={quote} className="font-sans italic text-gray-400 text-sm mb-5 break-inside-avoid">
                     &ldquo;{quote}&rdquo;

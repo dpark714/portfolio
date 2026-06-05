@@ -127,9 +127,9 @@ export default function Rootine() {
 
         {/* ── Header ── */}
         <div className="mb-12">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
             <h1 className="type-display text-primary">Rootine</h1>
-            <div className="flex gap-2 pt-1">
+            <div className="flex flex-wrap gap-2 pt-1">
               {['End-to-End', 'UXUI', 'Mobile'].map(tag => (
                 <span key={tag} className="type-tag text-xs px-2.5 py-1 rounded-full bg-black/8 text-gray-500 border border-black/10">
                   {tag}
@@ -310,7 +310,7 @@ export default function Rootine() {
             <Label>Final Design</Label>
 
             {/* Character description */}
-            <div className="grid grid-cols-[1fr_2fr] gap-10 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10 mb-8">
               <p className="type-label text-gray-400 pt-1">Brand Identity</p>
               <p className="type-body text-gray-500 text-right">
                 Inspired by the growth cycle of a seed: planting, rooting, and sprouting.<br />Each character reflects the depth and consistency of the user's daily actions.
