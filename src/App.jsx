@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import { db } from './firebase.js';
-import { ref, onValue, push, get, remove } from 'firebase/database';
+import { ref, query, limitToLast, onValue, push } from 'firebase/database';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -262,6 +262,8 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
         {/* Name Input Area - No border, flat style */}
         <div className="w-full flex flex-col items-center gap-1 mb-3">
           <input
+            id="guest-name"
+            name="guest-name"
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
@@ -347,10 +349,15 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
           </div>
 
           <button
-            onClick={() => {
+            onClick={async () => {
               if (userName.trim()) {
-                onSignGuestbook({ id: Date.now(), name: userName, animal, expression, accessory, color });
-                setUserName('');
+                try {
+                  await onSignGuestbook({ id: Date.now(), name: userName, animal, expression, accessory, color });
+                  setUserName('');
+                } catch (err) {
+                  console.error('Guestbook write failed:', err);
+                  alert('Could not sign guestbook: ' + err.message);
+                }
               }
             }}
             disabled={!userName.trim()}
@@ -478,32 +485,22 @@ function MainLayout() {
   const [guests, setGuests] = useState([]);
 
   useEffect(() => {
-    const guestbookRef = ref(db, 'guestbook');
-    const unsubscribe = onValue(guestbookRef, (snapshot) => {
+    const guestbookQuery = query(ref(db, 'guestbook'), limitToLast(MAX_GUESTS));
+    const unsubscribe = onValue(guestbookQuery, (snapshot) => {
       const data = [];
       if (snapshot.exists()) {
         snapshot.forEach(child => data.push({ id: child.key, ...child.val() }));
       }
       setGuests(data);
+    }, (error) => {
+      console.error('Firebase onValue error:', error.code, error.message);
     });
     return () => unsubscribe();
   }, []);
 
   const handleSignGuestbook = async (guest) => {
-    const guestbookRef = ref(db, 'guestbook');
-    const snapshot = await get(guestbookRef);
-    if (snapshot.exists()) {
-      const keys = [];
-      snapshot.forEach(child => keys.push(child.key));
-      if (keys.length >= MAX_GUESTS) {
-        const toRemove = keys.slice(0, keys.length - MAX_GUESTS + 1);
-        for (const key of toRemove) {
-          await remove(ref(db, `guestbook/${key}`));
-        }
-      }
-    }
     const { id, ...guestData } = guest;
-    await push(guestbookRef, guestData);
+    await push(ref(db, 'guestbook'), guestData);
   };
 
   const greeting = userName.trim() ? `Hi ${userName.trim()},` : 'Hi there,';
