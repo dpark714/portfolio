@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
+import { db } from './firebase.js';
+import { ref, onValue, push, get, remove } from 'firebase/database';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -468,24 +470,41 @@ function DraggablePolaroid({ guest, index, renderAvatar }) {
   );
 }
 
-const DEFAULT_GUESTS = [];
-const MAX_GUESTS = 10;
+const MAX_GUESTS = 5;
 
 function MainLayout() {
   const [userName, setUserName] = useState('');
   const sectionRef = useRef(null);
-  const [guests, setGuests] = useState(() => {
-    try {
-      const saved = localStorage.getItem('guestbook');
-      return saved ? JSON.parse(saved) : DEFAULT_GUESTS;
-    } catch {
-      return DEFAULT_GUESTS;
-    }
-  });
+  const [guests, setGuests] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem('guestbook', JSON.stringify(guests));
-  }, [guests]);
+    const guestbookRef = ref(db, 'guestbook');
+    const unsubscribe = onValue(guestbookRef, (snapshot) => {
+      const data = [];
+      if (snapshot.exists()) {
+        snapshot.forEach(child => data.push({ id: child.key, ...child.val() }));
+      }
+      setGuests(data);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignGuestbook = async (guest) => {
+    const guestbookRef = ref(db, 'guestbook');
+    const snapshot = await get(guestbookRef);
+    if (snapshot.exists()) {
+      const keys = [];
+      snapshot.forEach(child => keys.push(child.key));
+      if (keys.length >= MAX_GUESTS) {
+        const toRemove = keys.slice(0, keys.length - MAX_GUESTS + 1);
+        for (const key of toRemove) {
+          await remove(ref(db, `guestbook/${key}`));
+        }
+      }
+    }
+    const { id, ...guestData } = guest;
+    await push(guestbookRef, guestData);
+  };
 
   const greeting = userName.trim() ? `Hi ${userName.trim()},` : 'Hi there,';
 
@@ -530,7 +549,7 @@ function MainLayout() {
           <div className="w-full lg:w-[35%] flex flex-col gap-6 lg:gap-8 fade-up">
             {/* Desktop only — on mobile shown at the end */}
             <div className="hidden lg:block">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={(g) => setGuests(prev => prev.length >= MAX_GUESTS ? [g] : [...prev, g])} />
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} />
             </div>
             {/* Desktop only — on mobile this is shown after IMDb in right column */}
             <Link to="/interaction-design" className="hidden lg:block">
@@ -580,7 +599,7 @@ function MainLayout() {
 
             {/* Mobile only — Who are you at the end */}
             <div className="lg:hidden">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={(g) => setGuests(prev => prev.length >= MAX_GUESTS ? [g] : [...prev, g])} />
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} />
             </div>
           </div>
 
