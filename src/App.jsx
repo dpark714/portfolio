@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import { db } from './firebase.js';
-import { ref, query, limitToLast, onValue, push } from 'firebase/database';
+import { ref, onValue, push } from 'firebase/database';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -239,7 +239,7 @@ const renderAvatar = (animalType, expType, accessoryType, scale = 1, headOnly = 
   );
 };
 
-function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
+function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 'guest-name' }) {
   const [animal, setAnimal] = useState(0);
   const [expression, setExpression] = useState(0);
   const [accessory, setAccessory] = useState(0);
@@ -262,8 +262,8 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook }) {
         {/* Name Input Area - No border, flat style */}
         <div className="w-full flex flex-col items-center gap-1 mb-3">
           <input
-            id="guest-name"
-            name="guest-name"
+            id={inputId}
+            name={inputId}
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
@@ -485,13 +485,12 @@ function MainLayout() {
   const [guests, setGuests] = useState([]);
 
   useEffect(() => {
-    const guestbookQuery = query(ref(db, 'guestbook'), limitToLast(MAX_GUESTS));
-    const unsubscribe = onValue(guestbookQuery, (snapshot) => {
+    const unsubscribe = onValue(ref(db, 'guestbook'), (snapshot) => {
       const data = [];
       if (snapshot.exists()) {
-        snapshot.forEach(child => data.push({ id: child.key, ...child.val() }));
+        snapshot.forEach(child => { data.push({ id: child.key, ...child.val() }); });
       }
-      setGuests(data);
+      setGuests(data.slice(-MAX_GUESTS));
     }, (error) => {
       console.error('Firebase onValue error:', error.code, error.message);
     });
@@ -546,7 +545,7 @@ function MainLayout() {
           <div className="w-full lg:w-[35%] flex flex-col gap-6 lg:gap-8 fade-up">
             {/* Desktop only — on mobile shown at the end */}
             <div className="hidden lg:block">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} />
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} inputId="guest-name-desktop" />
             </div>
             {/* Desktop only — on mobile this is shown after IMDb in right column */}
             <Link to="/interaction-design" className="hidden lg:block">
@@ -596,7 +595,7 @@ function MainLayout() {
 
             {/* Mobile only — Who are you at the end */}
             <div className="lg:hidden">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} />
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} inputId="guest-name-mobile" />
             </div>
           </div>
 
