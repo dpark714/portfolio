@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import confetti from 'canvas-confetti';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -244,6 +245,8 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
   const [expression, setExpression] = useState(0);
   const [accessory, setAccessory] = useState(0);
   const [color, setColor] = useState('#bae6fd');
+  const [submitted, setSubmitted] = useState(false);
+  const buttonRef = useRef(null);
 
   const nextItem = (setter, length) => setter(prev => (prev + 1) % length);
   const prevItem = (setter, length) => setter(prev => (prev - 1 + length) % length);
@@ -348,23 +351,47 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
             ))}
           </div>
 
-          <button
-            onClick={async () => {
-              if (userName.trim()) {
-                try {
-                  await onSignGuestbook({ id: Date.now(), name: userName, animal, expression, accessory, color });
-                  setUserName('');
-                } catch (err) {
-                  console.error('Guestbook write failed:', err);
-                  alert('Could not sign guestbook: ' + err.message);
+          {submitted ? (
+            <div className="w-full mt-2 flex flex-col items-center gap-0.5 py-2">
+              <span className="font-['Outfit'] text-2xl text-gray-700">You made the wall.</span>
+              <span className="font-mono text-[11px] text-gray-400 tracking-tight">scroll down to see yourself</span>
+            </div>
+          ) : (
+            <button
+              ref={buttonRef}
+              onClick={async () => {
+                if (userName.trim()) {
+                  try {
+                    await onSignGuestbook({ id: Date.now(), name: userName, animal, expression, accessory, color });
+                    setUserName('');
+                    setSubmitted(true);
+                    setTimeout(() => setSubmitted(false), 3000);
+                    const rect = buttonRef.current?.getBoundingClientRect();
+                    if (rect) {
+                      confetti({
+                        particleCount: 60,
+                        spread: 70,
+                        startVelocity: 20,
+                        origin: {
+                          x: (rect.left + rect.width / 2) / window.innerWidth,
+                          y: rect.top / window.innerHeight,
+                        },
+                        scalar: 0.7,
+                        ticks: 80,
+                      });
+                    }
+                  } catch (err) {
+                    console.error('Guestbook write failed:', err);
+                    alert('Could not sign guestbook: ' + err.message);
+                  }
                 }
-              }
-            }}
-            disabled={!userName.trim()}
-            className="w-full mt-2 bg-[#111] text-white font-mono text-sm py-2.5 rounded-xl hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Sign Guestbook
-          </button>
+              }}
+              disabled={!userName.trim()}
+              className="w-full mt-2 bg-[#111] text-white font-mono text-sm py-2.5 rounded-xl hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Sign Guestbook
+            </button>
+          )}
 
         </div>
       </div>
