@@ -353,7 +353,7 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
 
           {submitted ? (
             <div className="w-full mt-2 flex flex-col items-center gap-0.5 py-2">
-              <span className="font-['Outfit'] text-2xl text-gray-700">You made the wall.</span>
+              <span className="font-['Outfit'] text-2xl text-gray-700">You made the wall!</span>
               <span className="font-mono text-[11px] text-gray-400 tracking-tight">scroll down to see yourself</span>
             </div>
           ) : (
