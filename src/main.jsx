@@ -9,6 +9,7 @@ import IMDb from './pages/IMDb.jsx'
 import InteractionDesign from './pages/InteractionDesign.jsx'
 import ToggleWiggle from './pages/interaction/ToggleWiggle.jsx'
 import HandleHeat from './pages/interaction/HandleHeat.jsx'
+import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 
 function ScrollToTop() {
@@ -20,6 +21,7 @@ function ScrollToTop() {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
+      <Analytics />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<App />} />
