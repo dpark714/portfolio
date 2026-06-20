@@ -6,6 +6,7 @@ import App from './App.jsx'
 import About from './pages/About.jsx'
 import Rootine from './pages/Rootine.jsx'
 import IMDb from './pages/IMDb.jsx'
+import Work from './pages/Work.jsx'
 import InteractionDesign from './pages/InteractionDesign.jsx'
 import ToggleWiggle from './pages/interaction/ToggleWiggle.jsx'
 import HandleHeat from './pages/interaction/HandleHeat.jsx'
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/work" element={<Work />} />
         <Route path="/about" element={<About />} />
         <Route path="/rootine" element={<Rootine />} />
         <Route path="/imdb" element={<IMDb />} />

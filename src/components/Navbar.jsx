@@ -15,9 +15,9 @@ export default function Navbar({ sticky = true }) {
         <Link to="/about" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
           About
         </Link>
-        <a href="/#work" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
+        <Link to="/work" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
           Work
-        </a>
+        </Link>
         <a
           href="https://drive.google.com/file/d/1T5bPBx9-hG59lVFRI9rnQ7p4adOOa4zI/view?usp=sharing"
           target="_blank"
