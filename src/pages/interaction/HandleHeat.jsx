@@ -36,9 +36,9 @@ export default function HandleHeat() {
               <span className="type-tag text-xs text-gray-500 border border-gray-300 rounded-full px-4 py-1.5">Team of 4</span>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
             <h1 className="font-sans font-light text-4xl md:text-5xl text-primary">HandleHeat</h1>
-            <p className="type-body text-gray-400 max-w-xs md:text-right">
+            <p className="type-body text-gray-400 max-w-sm md:text-right">
               A physical-digital interface that maps handle grip and rotation to precise stove heat levels.
             </p>
           </div>

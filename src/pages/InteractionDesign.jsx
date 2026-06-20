@@ -18,7 +18,7 @@ const projects = [
     index: '02',
     category: 'Stove Heat Control',
     title: 'HandleHeat',
-    description: 'A physical-digital interface that maps handle grip and rotation to precise stove heat levels.',
+    description: 'A physical-digital interface mapping handle grip and rotation to precise stove heat levels.',
     preview: '/interaction/handle-heat/thumbnail.png',
     previewType: 'image',
     objectPosition: 'center',
