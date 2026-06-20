@@ -25,9 +25,9 @@
   .type-display  { @apply font-sans font-normal  text-[40px] leading-tight; }
   .type-headline { @apply font-sans font-semibold text-3xl md:text-5xl leading-snug; }
   .type-title    { @apply font-sans font-medium  text-lg   md:text-xl; }
-  .type-body-lg  { @apply font-sans text-xl      leading-relaxed; }
-  .type-body     { @apply font-sans text-base    leading-relaxed; }
-  .type-body-sm  { @apply font-sans text-sm      leading-relaxed; }
+  .type-body-lg  { @apply font-sans text-[22px]  leading-relaxed; }
+  .type-body     { @apply font-sans text-[18px]  leading-relaxed; }
+  .type-body-sm  { @apply font-sans text-base    leading-relaxed; }
   .type-stat     { @apply font-sans font-light   text-4xl  md:text-5xl; }
   .type-label    { @apply font-mono text-xs      uppercase tracking-widest; }
   .type-caption  { @apply font-mono text-xs      uppercase tracking-widest; }

@@ -34,7 +34,7 @@ export default function InteractionDesign() {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-24 sm:pt-28 pb-24 sm:pb-32">
 
         {/* Page header */}
-        <div className="mb-20">
+        <div className="mb-8">
           <h1 className="type-display text-primary leading-none">
             Interaction Design
           </h1>

@@ -604,7 +604,7 @@ function MainLayout() {
             </Link>
 
             <div className="flex gap-6 lg:gap-8">
-              <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUM Design', 'UXUI', 'B2B']}>
+              <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUDesign', 'UXUI', 'B2B']}>
                 <div className="absolute inset-0 z-0" style={{ backgroundColor: '#DFECFC' }} />
                 <img src="/fintalo/thumbnail.png" alt="Fintalo" className="absolute inset-0 w-full h-full object-contain z-10" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }} />
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/40 backdrop-blur-[2px]">
