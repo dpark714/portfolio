@@ -51,7 +51,7 @@ export default function Work() {
 
         {/* Page header */}
         <div className="mb-8">
-          <h1 className="type-display text-primary leading-none">
+          <h1 className="font-['Outfit'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary">
             Work
           </h1>
         </div>

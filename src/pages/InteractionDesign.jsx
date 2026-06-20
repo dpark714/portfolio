@@ -35,7 +35,7 @@ export default function InteractionDesign() {
 
         {/* Page header */}
         <div className="mb-8">
-          <h1 className="type-display text-primary leading-none">
+          <h1 className="font-['Outfit'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary">
             Interaction Design
           </h1>
         </div>

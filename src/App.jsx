@@ -270,8 +270,8 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="text-center font-sans font-medium text-base md:text-lg bg-gray-100/80 rounded-full py-2.5 px-6 w-full max-w-xs focus:outline-none transition-all text-gray-700 placeholder:text-gray-400 focus:placeholder:text-transparent"
-            placeholder="Dahyeon"
+            className="text-center font-sans font-medium text-base md:text-lg bg-gray-100/80 rounded-full py-2.5 px-6 w-full max-w-xs outline-none ring-0 focus:outline-none focus:ring-0 transition-all text-gray-700 placeholder:text-gray-400 focus:placeholder:text-transparent"
+            placeholder="enter your name"
           />
         </div>
 
@@ -397,6 +397,122 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
       </div>
     </BentoCard>
   )
+}
+
+function ScribblingCanvas() {
+  const canvasRef = useRef(null);
+  const animRef = useRef(null);
+  const particles = useRef([]);
+  const hue = useRef(200);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    const setSize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    setSize();
+
+    const drawSparkle = (x, y, r, angle, alpha, h) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = `hsl(${h},90%,72%)`;
+      ctx.lineWidth = Math.max(0.5, r * 0.22);
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      for (let i = 0; i < 4; i++) {
+        const a = (i / 4) * Math.PI * 2;
+        ctx.moveTo(0, 0);
+        ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 0.18, 0, Math.PI * 2);
+      ctx.fillStyle = `hsl(${h},90%,85%)`;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    };
+
+    const idleSparkles = Array.from({ length: 8 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      h: Math.random() * 360,
+      r: 3 + Math.random() * 3,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.012,
+    }));
+
+    const spawn = (x, y) => {
+      hue.current = (hue.current + 15) % 360;
+      for (let i = 0; i < 5; i++) {
+        particles.current.push({
+          x, y,
+          vx: (Math.random() - 0.5) * 5,
+          vy: (Math.random() - 0.5) * 5,
+          life: 1,
+          size: 5 + Math.random() * 7,
+          h: hue.current + (Math.random() - 0.5) * 50,
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.18,
+        });
+      }
+    };
+
+    const loop = () => {
+      ctx.fillStyle = 'rgba(17,17,17,0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const d of idleSparkles) {
+        d.x += d.vx; d.y += d.vy;
+        d.h = (d.h + 0.3) % 360;
+        d.angle += d.spin;
+        if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
+        if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+        drawSparkle(d.x, d.y, d.r, d.angle, 0.22, d.h);
+      }
+
+      particles.current = particles.current.filter(p => p.life > 0.02);
+      for (const p of particles.current) {
+        p.x += p.vx; p.y += p.vy;
+        p.vx *= 0.94; p.vy *= 0.94;
+        p.life -= 0.024;
+        p.angle += p.spin;
+        drawSparkle(p.x, p.y, p.size * p.life, p.angle, p.life, p.h);
+      }
+
+      animRef.current = requestAnimationFrame(loop);
+    };
+    loop();
+
+    const onMove = (e) => {
+      const r = canvas.getBoundingClientRect();
+      spawn(e.clientX - r.left, e.clientY - r.top);
+    };
+    const onTouch = (e) => {
+      const r = canvas.getBoundingClientRect();
+      spawn(e.touches[0].clientX - r.left, e.touches[0].clientY - r.top);
+    };
+    const onResize = () => setSize();
+
+    canvas.addEventListener('mousemove', onMove);
+    canvas.addEventListener('touchmove', onTouch, { passive: true });
+    window.addEventListener('resize', onResize);
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      canvas.removeEventListener('mousemove', onMove);
+      canvas.removeEventListener('touchmove', onTouch);
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-crosshair" />;
 }
 
 function DraggablePolaroid({ guest, index, renderAvatar }) {
@@ -612,11 +728,8 @@ function MainLayout() {
                 </div>
               </BentoCard>
 
-              <BentoCard title="Scribbl...ing" className="h-[200px] flex-1">
-                <div className="absolute inset-0 w-full h-full bg-[#fdfdfd] flex flex-col items-center justify-center p-6 overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-700 z-20">
-                  <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'linear-gradient(90deg, #000 1px, transparent 1px), linear-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                  <span className="font-mono text-xs text-primary/40 z-10 relative bg-white/80 px-3 py-1.5 rounded-md border border-gray-100">Interactive Canvas</span>
-                </div>
+              <BentoCard title="Scribbl...ing" className="h-[200px] flex-1" bg="#111">
+                <ScribblingCanvas />
               </BentoCard>
             </div>
 
