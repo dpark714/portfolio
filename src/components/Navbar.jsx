@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, AtSign } from 'lucide-react';
+import { AtSign } from 'lucide-react';
 
 export default function Navbar({ sticky = true }) {
   return (
@@ -18,14 +18,6 @@ export default function Navbar({ sticky = true }) {
         <Link to="/work" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
           Work
         </Link>
-        <a
-          href="https://drive.google.com/file/d/1q-SpDhgzJh4Q4jy7D7PdmZCjXlCi7X4Z/view?usp=sharing"
-          target="_blank"
-          rel="noreferrer"
-          className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity flex items-center gap-1"
-        >
-          Resume <ArrowUpRight className="w-3 h-3" />
-        </a>
       </div>
 
       {/* Social icons — LinkedIn always visible, email desktop only */}
