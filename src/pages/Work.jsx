@@ -6,6 +6,18 @@ import Footer from '../components/Footer.jsx';
 const projects = [
   {
     index: '01',
+    category: 'B2B · Technical University of Munich Design Club',
+    title: 'Fintalo',
+    description: 'Designed the front-end interface for an AI Analyst feature on a B2B M&A platform.',
+    preview: '/fintalo/thumbnail.png',
+    previewType: 'image',
+    objectPosition: 'center',
+    href: '/fintalo',
+    tags: ['UXUI', 'B2B'],
+    comingSoon: false,
+  },
+  {
+    index: '02',
     category: 'End-to-end · Mobile',
     title: 'Rootine',
     description: 'A habit-tracking app designed to build sustainable routines through micro-interactions.',
@@ -17,7 +29,7 @@ const projects = [
     comingSoon: false,
   },
   {
-    index: '02',
+    index: '03',
     category: 'Redesign · Mobile',
     title: 'IMDb App',
     description: 'A redesign of the IMDb mobile experience, streamlining discovery.',
@@ -27,18 +39,6 @@ const projects = [
     href: '/imdb',
     tags: ['UXUI', 'Redesign'],
     comingSoon: false,
-  },
-  {
-    index: '03',
-    category: 'B2B · Technical University of Munich Design Club',
-    title: 'Fintalo',
-    description: 'Designed the front-end interface for an AI Analyst feature on a B2B M&A platform.',
-    preview: '/fintalo/thumbnail.png',
-    previewType: 'image',
-    objectPosition: 'center',
-    href: '/work',
-    tags: ['UXUI', 'B2B'],
-    comingSoon: true,
   },
 ];
 

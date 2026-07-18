@@ -700,15 +700,15 @@ function MainLayout() {
 
           {/* Right Column (65%) */}
           <div className="w-full lg:w-[65%] flex flex-col gap-6 lg:gap-8 fade-up">
-            <Link to="/rootine">
-              <BentoCard title="Rootine" className="h-[400px]" tags={['End-to-end', 'UXUI']}>
-                <img src={projects[0].image} alt="Rootine" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
+            <Link to="/fintalo">
+              <BentoCard title="Fintalo" className="h-[400px]" tags={['TUDesign', 'UXUI', 'B2B']} bg="#DFECFC">
+                <img src="/fintalo/thumbnail.png" alt="Fintalo" className="absolute inset-0 w-full h-full object-contain z-10" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }} />
               </BentoCard>
             </Link>
 
-            <Link to="/imdb">
-              <BentoCard title="IMDb App" className="h-[300px]" tags={['Redesign', 'UXUI']}>
-                <img src={projects[1].image} alt="IMDb App" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
+            <Link to="/rootine">
+              <BentoCard title="Rootine" className="h-[300px]" tags={['End-to-end', 'UXUI']}>
+                <img src={projects[0].image} alt="Rootine" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
               </BentoCard>
             </Link>
 
@@ -720,13 +720,11 @@ function MainLayout() {
             </Link>
 
             <div className="flex gap-6 lg:gap-8">
-              <BentoCard title="Fintalo" className="flex-1 aspect-square" tags={['TUDesign', 'UXUI', 'B2B']}>
-                <div className="absolute inset-0 z-0" style={{ backgroundColor: '#DFECFC' }} />
-                <img src="/fintalo/thumbnail.png" alt="Fintalo" className="absolute inset-0 w-full h-full object-contain z-10" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }} />
-                <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/40 backdrop-blur-[2px]">
-                  <span className="font-mono text-xs text-primary/50 tracking-widest uppercase">Coming Soon</span>
-                </div>
-              </BentoCard>
+              <Link to="/imdb" className="flex-1">
+                <BentoCard title="IMDb App" className="aspect-square" tags={['Redesign', 'UXUI']}>
+                  <img src={projects[1].image} alt="IMDb App" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
+                </BentoCard>
+              </Link>
 
               <BentoCard title="Scribbl...ing" className="h-[200px] flex-1" bg="#111">
                 <ScribblingCanvas />
