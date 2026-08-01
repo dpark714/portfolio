@@ -671,11 +671,11 @@ function MainLayout() {
         <div className="font-['Outfit'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
           <p className="opacity-90">{greeting}</p>
           <p className="max-w-3xl leading-snug md:leading-normal">
-            My name is Dahyeon, a UIUX designer<br className="hidden md:block" />
-            <span className="bg-yellow-200 px-1">exploring how design shapes human behavior</span>
+            My name is Dahyeon, a UXUI designer<br className="hidden md:block" />
+            <span className="bg-yellow-200 px-1">I design at the intersection of code and cognition</span>
           </p>
           <p className="text-base md:text-lg font-['Crimson_Pro'] font-normal opacity-80 pt-4">
-            Currently pursuing a Master's in User Experience Design at Technische Hochschule Ingolstadt in Germany
+            With a background in Computer Science, currently pursuing an M.Sc. in User Experience Design at TH Ingolstadt, Germany
           </p>
         </div>
       </section>

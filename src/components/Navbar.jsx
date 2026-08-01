@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AtSign } from 'lucide-react';
 
-export default function Navbar({ sticky = true }) {
+export default function Navbar({ sticky = true, solid = false }) {
   return (
-    <nav className={`${sticky ? 'fixed' : 'absolute'} top-0 left-0 right-0 z-50 h-20 bg-white/80 backdrop-blur-md border-b border-black/8 px-4 md:px-10 flex items-center`}>
+    <nav className={`${sticky ? 'fixed' : 'absolute'} top-0 left-0 right-0 z-50 h-20 ${solid ? 'bg-white' : 'bg-white/80 backdrop-blur-md'} border-b border-black/8 px-4 md:px-10 flex items-center`}>
 
       {/* Logo — far left */}
       <Link to="/" aria-label="Home" className="shrink-0 hover:opacity-70 transition-opacity">

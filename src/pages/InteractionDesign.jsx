@@ -28,7 +28,7 @@ const projects = [
 
 export default function InteractionDesign() {
   return (
-    <div className="min-h-screen bg-[#F8F8F8] text-primary">
+    <div className="min-h-screen bg-white text-primary">
       <Navbar sticky={false} />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-24 sm:pt-28 pb-24 sm:pb-32">

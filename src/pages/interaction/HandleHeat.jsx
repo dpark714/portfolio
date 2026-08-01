@@ -12,7 +12,7 @@ export default function HandleHeat() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F8F8F8] text-primary">
+    <div className="min-h-screen bg-white text-primary">
       <Navbar sticky={false} />
       <button
         onClick={() => navigate('/interaction-design')}

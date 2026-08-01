@@ -156,7 +156,7 @@ function SubLabel({ children }) {
 
 export default function IMDb() {
   return (
-    <div className="min-h-screen bg-[#F8F8F8] text-primary">
+    <div className="min-h-screen bg-white text-primary">
       <Navbar sticky={false} />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-28 sm:pt-32 pb-24 sm:pb-32">

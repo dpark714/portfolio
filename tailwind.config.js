@@ -15,7 +15,7 @@ export default {
         primary: "#141414",
         secondary: "#2c2c2c",
         accent: "#ff5e3a",
-        light: "#f5f5f5",
+        light: "#ffffff",
       },
       keyframes: {
         ticker: {
