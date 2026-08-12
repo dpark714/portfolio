@@ -73,7 +73,7 @@ const screens = [
 
 function Heading({ children, className = '' }) {
   return (
-    <h2 className={`font-['Outfit'] font-semibold text-2xl md:text-3xl leading-snug mb-5 ${className}`} style={{ color: INK }}>
+    <h2 className={`font-['Plus_Jakarta_Sans'] font-semibold text-2xl md:text-3xl leading-snug mb-5 ${className}`} style={{ color: INK }}>
       {children}
     </h2>
   );
@@ -127,19 +127,19 @@ function SectionNav({ sections }) {
   }, [sections]);
 
   return (
-    <nav className="hidden lg:flex flex-col gap-3.5 sticky top-32 self-start">
+    <nav className="hidden lg:flex flex-col gap-2.5 sticky top-32 self-start">
       {sections.map(({ id, label }) => (
         <button
           key={id}
           onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-          className="flex items-center gap-2.5 text-left"
+          className="flex items-center gap-2 text-left"
         >
           <span
-            className="shrink-0 w-1.5 h-1.5 rounded-full border transition-colors duration-200"
+            className="shrink-0 w-1 h-1 rounded-full border transition-colors duration-200"
             style={{ backgroundColor: active === id ? INK : 'transparent', borderColor: active === id ? INK : LINE }}
           />
           <span
-            className="type-label transition-colors duration-200"
+            className="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-widest transition-colors duration-200"
             style={{ color: active === id ? INK : MUTED, fontWeight: active === id ? 600 : 400 }}
           >
             {label}
@@ -194,7 +194,7 @@ export default function Fintalo() {
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-40 sm:pt-48 pb-32 relative">
           <div className="relative z-10 text-center max-w-4xl mx-auto">
             <span className="type-label mb-5 inline-block" style={{ color: MUTED }}>Case Study — Fintalo</span>
-            <h1 className="font-['Outfit'] italic text-3xl sm:text-4xl md:text-5xl leading-[1.1] whitespace-nowrap" style={{ color: INK }}>
+            <h1 className="font-['Plus_Jakarta_Sans'] italic text-3xl sm:text-4xl md:text-5xl leading-[1.1] whitespace-nowrap" style={{ color: INK }}>
               The operating system for M&A deals
             </h1>
           </div>
@@ -264,7 +264,7 @@ export default function Fintalo() {
         <div className="mb-20 -mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="rounded-2xl p-7 md:p-8 flex flex-col gap-4 md:col-span-2 border-2" style={{ backgroundColor: `${BLUE}14`, borderColor: BLUE }}>
             <span className="type-label" style={{ color: BLUE }}>Primary — in scope</span>
-            <p className="font-['Outfit'] font-semibold text-2xl" style={{ color: INK }}>M&A Advisor</p>
+            <p className="font-['Plus_Jakarta_Sans'] font-semibold text-2xl" style={{ color: INK }}>M&A Advisor</p>
             <p className="type-body-sm font-['Plus_Jakarta_Sans'] max-w-md" style={{ color: MUTED }}>{primaryParty.body}</p>
             <ul className="flex flex-col gap-2 pt-3 border-t" style={{ borderColor: LINE }}>
               {primaryParty.traits.map((t) => (
@@ -276,7 +276,7 @@ export default function Fintalo() {
             {secondaryParties.map((p) => (
               <div key={p.title} className="rounded-2xl p-6 flex flex-col gap-2 flex-1 border" style={{ backgroundColor: '#FFFFFF', borderColor: LINE }}>
                 <span className="type-label" style={{ color: MUTED }}>{p.tag}</span>
-                <p className="font-['Outfit'] font-semibold text-xl" style={{ color: INK }}>{p.title}</p>
+                <p className="font-['Plus_Jakarta_Sans'] font-semibold text-xl" style={{ color: INK }}>{p.title}</p>
                 <p className="type-body-sm font-['Plus_Jakarta_Sans']" style={{ color: MUTED }}>{p.body}</p>
               </div>
             ))}
@@ -310,14 +310,14 @@ export default function Fintalo() {
             {stages.map((s) => (
               <div key={s.n} className="relative z-10 flex flex-col md:items-center gap-3">
                 <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center font-['Outfit'] font-semibold text-sm shrink-0"
+                  className="w-9 h-9 rounded-full flex items-center justify-center font-['Plus_Jakarta_Sans'] font-semibold text-sm shrink-0"
                   style={{ backgroundColor: ACCENT, color: '#FFFFFF' }}
                 >
                   {s.n}
                 </div>
                 <div className="flex flex-col gap-1 md:text-center">
                   <p className="font-['Plus_Jakarta_Sans'] font-semibold text-lg" style={{ color: INK }}>{s.title}</p>
-                  <p className="type-body-sm font-['Plus_Jakarta_Sans'] md:max-w-[180px] md:mx-auto" style={{ color: MUTED }}>{s.body}</p>
+                  <p className="type-body-sm font-['Plus_Jakarta_Sans'] md:max-w-[260px] md:mx-auto" style={{ color: MUTED }}>{s.body}</p>
                 </div>
               </div>
             ))}
@@ -366,10 +366,10 @@ export default function Fintalo() {
 
         {/* Scope items — full width, image-led like a running narrative */}
         <div className="mb-20 flex flex-col gap-16">
-          {scopeItems.map((item, i) => (
+          {scopeItems.map((item) => (
             <div key={item.title} className="max-w-2xl mx-auto text-center">
-              <p className="font-['Outfit'] font-semibold text-xl leading-tight mb-3" style={{ color: INK }}>
-                {i + 1}. {item.title}
+              <p className="font-['Plus_Jakarta_Sans'] font-semibold text-xl leading-tight mb-3" style={{ color: INK }}>
+                {item.title}
               </p>
               <p className="type-body-sm font-['Plus_Jakarta_Sans'] mb-6" style={{ color: MUTED }}>{item.body}</p>
               <Figure className="w-full aspect-[16/9]" hideCaption />
@@ -399,12 +399,21 @@ export default function Fintalo() {
       <div id="takeaways" style={{ backgroundColor: BLUE }}>
         <div className="max-w-2xl mx-auto px-6 py-24 md:py-28 text-center flex flex-col gap-8">
           <p className="type-label" style={{ color: 'rgba(255,255,255,0.5)' }}>Takeaways</p>
-          <p className="font-['Plus_Jakarta_Sans'] text-xl md:text-2xl leading-relaxed text-white/90">
-            Designing for a platform that handles confidential deals with real money at stake is a different exercise than consumer products, since every interaction has to earn trust, not just usability. It has changed how I think about feedback, system states, and what "premium" means in a B2B context.
-          </p>
-          <p className="font-['Plus_Jakarta_Sans'] text-xl md:text-2xl leading-relaxed text-white/90">
-            Next: finalizing the investor journey redesign, then moving into the AI Analyst interface and a refreshed design system. This page will be updated with real screens as the project clears for release.
-          </p>
+          <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start text-left">
+            <img
+              src="/fintalo/fintalo_groupPic.JPG"
+              alt="Fintalo team"
+              className="w-40 sm:w-56 rounded-xl object-cover shrink-0"
+            />
+            <div className="flex flex-col gap-6">
+              <p className="font-['Plus_Jakarta_Sans'] text-xl md:text-2xl leading-relaxed text-white/90">
+                Designing for a platform that handles confidential deals with real money at stake is a different exercise than consumer products, since every interaction has to earn trust, not just usability. It has changed how I think about feedback, system states, and what "premium" means in a B2B context.
+              </p>
+              <p className="font-['Plus_Jakarta_Sans'] text-xl md:text-2xl leading-relaxed text-white/90">
+                Next: finalizing the investor journey redesign, then moving into the AI Analyst interface and a refreshed design system. This page will be updated with real screens as the project clears for release.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -9,7 +9,7 @@ export default function UnderConstruction() {
           <path d="M28 62 Q50 82 72 62" stroke="white" strokeWidth="8" strokeLinecap="round" fill="none" />
         </svg>
       </span>
-      <p className="font-['Outfit'] font-bold text-3xl sm:text-4xl mb-3">Under construction</p>
+      <p className="font-['Plus_Jakarta_Sans'] font-bold text-3xl sm:text-4xl mb-3">Under construction</p>
       <p className="font-sans text-base text-gray-500 max-w-sm">
         This site is getting a redesign. Check back soon.
       </p>

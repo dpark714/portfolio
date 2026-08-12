@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AtSign } from 'lucide-react';
+import { useProfile } from '../context/ProfileContext.jsx';
+import { renderAvatar } from '../lib/avatar.jsx';
 
 export default function Navbar({ sticky = true, solid = false }) {
+  const { profile } = useProfile();
+
   return (
     <nav className={`${sticky ? 'fixed' : 'absolute'} top-0 left-0 right-0 z-50 h-20 ${solid ? 'bg-white' : 'bg-white/80 backdrop-blur-md'} border-b border-black/8 px-4 md:px-10 flex items-center`}>
 
@@ -21,7 +25,20 @@ export default function Navbar({ sticky = true, solid = false }) {
       </div>
 
       {/* Social icons — LinkedIn always visible, email desktop only */}
-      <div className="shrink-0 flex items-center gap-4 md:gap-5">
+      <div className="shrink-0 flex items-center gap-3 md:gap-5">
+        {profile && (
+          <div className="flex items-center gap-1.5 md:gap-2 shrink-0" title={profile.name}>
+            <div
+              className="w-7 h-7 md:w-8 md:h-8 rounded-full overflow-hidden relative flex items-center justify-center shrink-0"
+              style={{ backgroundColor: profile.color }}
+            >
+              {renderAvatar(profile.animal, profile.expression, profile.accessory, 0.22, true)}
+            </div>
+            <span className="hidden sm:inline font-mono text-xs text-primary max-w-[80px] truncate">
+              {profile.name}
+            </span>
+          </div>
+        )}
         <a
           href="https://www.linkedin.com/in/dahyeon-park/"
           target="_blank"

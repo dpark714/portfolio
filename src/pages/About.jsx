@@ -2,6 +2,17 @@ import { useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 
+const education = [
+  { degree: 'M.Sc. in User Experience Design', year: '2026 - Present', school: 'Technische Hochschule Ingolstadt, Germany' },
+  { degree: 'B.Sc. in Computer Science', year: '2024', school: 'The City College of New York, USA' },
+];
+
+const experience = [
+  { role: 'UX/UI Designer', year: '2026', company: 'Fintalo & TUDesign, Technische Universität München, Germany', image: '/fintalo/fintalo_presentation.jpg' },
+  { role: 'Full-Stack Developer Intern', year: '2024', company: 'NYC Dept. of Records and Information Services, USA' },
+  { role: 'AI/ML Engineer Fellow', year: '2023', company: 'Pfizer & Cornell University, USA', image: '/Pfizer_groupPic.jpg' },
+];
+
 const interests = [
   {
     id: 'coffee',
@@ -48,7 +59,7 @@ export default function About() {
 
       {/* Greeting */}
       <div className="px-6 md:px-16 pt-28 max-w-[1200px] mx-auto flex flex-col items-center">
-        <p className="font-['Outfit'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary text-center">
+        <p className="font-['Plus_Jakarta_Sans'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary text-center">
           Hi! Nice to meet you{' '}
           <span className="inline-block align-middle ml-2 animate-spin-slow">
             <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -70,46 +81,68 @@ export default function About() {
             <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Who am I?</p>
             <div className="flex flex-col gap-5">
               <p className="font-sans text-base text-gray-600 leading-relaxed">
-                Hi there! I'm Dahyeon. Growing up in South Korea, I was the kid who changed career dreams every other week. One day I wanted to be a dentist, the next a fashion designer, and then a dancer. Looking back, none of those dreams really stuck but the curiosity behind them did.
+                Hi there! I'm Dahyeon ["tah-hyuhn"]. Growing up in South Korea, I was the kid who changed career dreams every other week. One day I wanted to be a dentist, the next a fashion designer, and then a dancer. Looking back, none of those dreams really stuck but the curiosity behind them did.
               </p>
               <p className="font-sans text-base text-gray-600 leading-relaxed">
-                I moved to New York to broaden my perspective. I studied Computer Science at The City College of New York. During my time there, I worked as a full-stack developer intern, joined the Cornell Break Through Tech program, and collaborated with people from different disciplines. Living abroad on my own also taught me resilience, adaptability, and how much growth can come from stepping out of my comfort zone.
-              </p>
-              <p className="font-sans text-base text-gray-600 leading-relaxed">
-                As I worked more closely with front-end development, I became increasingly curious about the people behind the screens. I found myself drawn to the creative and human side of technology. Today, I'm pursuing a Master's in User Experience Design at TH Ingolstadt in Germany. I enjoy designing experiences that feel meaningful and human. Behind the screens, you'll usually find me brewing coffee, running, or baking.
+                Today, I'm pursuing a Master's in User Experience Design at TH Ingolstadt in Germany. I enjoy designing experiences that feel meaningful and human. Behind the screens, you can find me brewing coffee, running, or baking.
               </p>
             </div>
           </div>
 
           {/* Country photo collage */}
-          <div className="w-[220px] sm:w-[260px] md:w-[260px] lg:w-[340px] shrink-0 flex flex-col gap-2 mx-auto md:mx-0">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100">
+          <div className="w-[220px] sm:w-[260px] md:w-[260px] lg:w-[340px] shrink-0 grid grid-cols-2 gap-2 mx-auto md:mx-0 md:mt-10">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
               <img src="/country/USA.JPG" alt="United States" className="w-full h-full object-cover" />
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
-                <img src="/country/Korea.jpg" alt="Korea" className="w-full h-full object-cover" />
-              </div>
-              <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
-                <img src="/country/Germany.JPG" alt="Germany" className="w-full h-full object-cover" style={{ objectPosition: 'center 60%' }} />
-              </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
+              <img src="/country/Korea.jpg" alt="Korea" className="w-full h-full object-cover" />
             </div>
           </div>
         </section>
 
-        {/* Design process */}
-        <section className="flex flex-col gap-6 max-w-2xl">
-          <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">What is my design process</p>
+        <hr className="border-t border-gray-200" />
+
+        {/* Timeline */}
+        <section className="flex flex-col gap-10 max-w-2xl">
           <div className="flex flex-col gap-5">
-            <p className="font-sans text-base text-gray-600 leading-relaxed">
-              My design process starts with curiosity. I begin by understanding the problem and the people behind it, then explore ideas early rather than waiting for perfect clarity.
-            </p>
-            <p className="font-sans text-base text-gray-600 leading-relaxed">
-              I see design as an iterative process rather than a linear one. I move between researching, making, testing, and refining, using feedback and new insights to guide each step. Often, the most valuable discoveries come from seeing how a design works in a real context.
-            </p>
-            <p className="font-sans text-base text-gray-600 leading-relaxed">
-              I enjoy exploring the intersection of user needs, business objectives. At the end of the day, my goal is to design experiences that work as a whole.
-            </p>
+            <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Education</p>
+            <div className="flex flex-col gap-5">
+              {education.map((e) => (
+                <div key={e.degree}>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <p className="font-sans font-semibold text-base text-primary">{e.degree}</p>
+                    <span className="font-sans text-sm text-gray-400 shrink-0">{e.year}</span>
+                  </div>
+                  <p className="font-sans text-sm text-gray-400">{e.school}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Experience</p>
+            <div className="flex flex-col gap-5">
+              {experience.map((e) => (
+                <div key={e.role} className="relative group">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <p className="font-sans font-semibold text-base text-primary relative inline-block w-fit">
+                      {e.role}
+                      {e.image && (
+                        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 z-10 w-40 h-28 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 pointer-events-none">
+                          <img
+                            src={e.image}
+                            alt={`${e.company} team`}
+                            className="w-full h-full object-cover rounded-xl shadow-lg border border-white"
+                          />
+                        </div>
+                      )}
+                    </p>
+                    <span className="font-sans text-sm text-gray-400 shrink-0">{e.year}</span>
+                  </div>
+                  <p className="font-sans text-sm text-gray-400">{e.company}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -120,7 +153,7 @@ export default function About() {
 
         {/* Heading */}
         <div className="flex flex-col items-center py-16">
-          <p className="font-['Outfit'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary text-center">
+          <p className="font-['Plus_Jakarta_Sans'] font-bold text-3xl sm:text-4xl md:text-[2.75rem] leading-snug text-primary text-center">
             Things that make me{' '}
             <span className="font-['Crimson_Pro'] italic">happy</span>
             <span className="inline-block align-middle ml-3 animate-spin-slow">
@@ -138,16 +171,16 @@ export default function About() {
         </div>
 
         {/* Interactive panel */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
+        <div className="flex flex-col md:flex-row-reverse gap-10 md:gap-16 items-start">
 
-          {/* Left: interest list */}
-          <div className="flex flex-row md:flex-col gap-2 md:gap-0 flex-wrap md:w-[200px] shrink-0">
+          {/* Right: interest list */}
+          <div className="flex flex-row md:flex-col gap-2 md:gap-0 flex-wrap shrink-0">
             {interests.map(item => (
               <button
                 key={item.id}
                 onMouseEnter={() => setActiveId(item.id)}
                 onClick={() => setActiveId(item.id)}
-                className={`text-left py-1.5 md:py-2 px-0 font-sans font-bold text-lg md:text-2xl leading-tight transition-colors duration-200 cursor-pointer ${activeId === item.id ? 'text-primary' : 'text-gray-200 hover:text-gray-400'
+                className={`text-right w-full py-1.5 md:py-2 px-0 font-sans font-bold text-lg md:text-2xl leading-tight transition-colors duration-200 cursor-pointer ${activeId === item.id ? 'text-primary' : 'text-gray-200 hover:text-gray-400'
                   }`}
               >
                 {item.title}
@@ -155,7 +188,7 @@ export default function About() {
             ))}
           </div>
 
-          {/* Right: photos + description */}
+          {/* Left: photos + description */}
           <div className="flex-1 flex flex-col gap-4">
             <p className="font-sans text-sm text-gray-400 leading-relaxed">{active.description}</p>
             <div className="grid grid-cols-4 gap-2 rounded-2xl overflow-hidden">

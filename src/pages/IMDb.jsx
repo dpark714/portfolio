@@ -1,11 +1,16 @@
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
-import TableOfContents from '../components/TableOfContents.jsx';
 
-const TOC = [
+const PANEL = '#F7F6F3';
+const LINE = 'rgba(20,20,20,0.08)';
+const ACCENT = '#CA9A00';
+
+const sections = [
   { id: 'overview', label: 'Overview' },
   { id: 'research', label: 'Research' },
   { id: 'problem', label: 'Problem' },
+  { id: 'analysis', label: 'Analysis' },
   { id: 'solution', label: 'Solution' },
   { id: 'reflection', label: 'Reflection' },
 ];
@@ -55,63 +60,22 @@ const voiceOfCustomer = [
 ];
 
 const hypotheses = [
-  {
-    number: '01',
-    text: 'Users use IMDb primarily to validate known content, not to discover due to their task oriented intent.',
-  },
-  {
-    number: '02',
-    text: 'Unintuitive and untrustworthy personal features reduce user retention.',
-  },
-  {
-    number: '03',
-    text: 'Excessive content and poor layout cause cognitive overload.',
-  },
+  { number: '01', text: 'Users use IMDb primarily to validate known content, not to discover due to their task oriented intent.' },
+  { number: '02', text: 'Unintuitive and untrustworthy personal features reduce user retention.' },
+  { number: '03', text: 'Excessive content and poor layout cause cognitive overload.' },
 ];
 
 const validations = [
-  {
-    hypothesis: 'H1',
-    result: 'Confirmed',
-    text: 'Most users open IMDb with a specific title in mind, often after a recommendation. Discovery is rarely the intent.',
-  },
-  {
-    hypothesis: 'H2',
-    result: 'Confirmed',
-    text: 'Features like watched lists exist but are not intuitive. Users switch to Letterboxd or other apps for logging, sharing, or trend following.',
-  },
-  {
-    hypothesis: 'H3',
-    result: 'Refined',
-    text: 'Cognitive overload is caused more by layout structure (small UI, Ads overload, cluttered hierarchy) than by the volume of information itself.',
-  },
+  { hypothesis: 'H1', result: 'Confirmed', text: 'Most users open IMDb with a specific title in mind, often after a recommendation. Discovery is rarely the intent.' },
+  { hypothesis: 'H2', result: 'Confirmed', text: 'Features like watched lists exist but are not intuitive. Users switch to Letterboxd or other apps for logging, sharing, or trend following.' },
+  { hypothesis: 'H3', result: 'Refined', text: 'Cognitive overload is caused more by layout structure (small UI, Ads overload, cluttered hierarchy) than by the volume of information itself.' },
 ];
 
 const swot = [
-  {
-    label: 'Strengths',
-    color: 'bg-green-50 border-green-100',
-    labelColor: 'text-green-600',
-    items: ['Most reliable database for movies and TV', 'Extensive cast, crew, and production details'],
-  },
-  {
-    label: 'Weaknesses',
-    color: 'bg-red-50 border-red-100',
-    labelColor: 'text-red-500',
-    items: ['Lack of community interaction', 'Linear, passive content exploration'],
-  },
-  {
-    label: 'Opportunities',
-    color: 'bg-blue-50 border-blue-100',
-    labelColor: 'text-blue-500',
-    items: ['Personalized content based on behavior', 'Enhance core user actions and logging'],
-  },
-  {
-    label: 'Threats',
-    color: 'bg-orange-50 border-orange-100',
-    labelColor: 'text-orange-500',
-    items: ['Shift toward social, community based consumption', 'Interface gap vs. modern competitors'],
-  },
+  { label: 'Strengths', labelColor: 'text-green-600', items: ['Most reliable database for movies and TV', 'Extensive cast, crew, and production details'] },
+  { label: 'Weaknesses', labelColor: 'text-red-500', items: ['Lack of community interaction', 'Linear, passive content exploration'] },
+  { label: 'Opportunities', labelColor: 'text-blue-500', items: ['Personalized content based on behavior', 'Enhance core user actions and logging'] },
+  { label: 'Threats', labelColor: 'text-orange-500', items: ['Shift toward social, community based consumption', 'Interface gap vs. modern competitors'] },
 ];
 
 const screens = [
@@ -138,256 +102,275 @@ const screens = [
   },
 ];
 
-function Label({ children }) {
+function Eyebrow({ children }) {
   return (
-    <span className="type-label inline-block px-3 py-1.5 rounded-full bg-[#ff5e3a]/10 text-[#ff5e3a] mb-8">
+    <span className="type-label text-gray-400 mb-6 block">
       {children}
     </span>
   );
 }
 
-function SubLabel({ children }) {
+function Heading({ children, className = '' }) {
   return (
-    <p className="type-label text-gray-400 mb-6 pl-3 border-l-2 border-gray-300">
+    <h2 className={`font-sans font-semibold text-lg md:text-xl leading-snug mb-5 text-primary ${className}`}>
       {children}
-    </p>
+    </h2>
+  );
+}
+
+function SectionNav({ sections }) {
+  const [active, setActive] = useState(sections[0]?.id ?? '');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-10% 0px -50% 0px' }
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [sections]);
+
+  return (
+    <nav className="hidden lg:flex flex-col gap-2.5 sticky top-32 self-start">
+      {sections.map(({ id, label }) => (
+        <button
+          key={id}
+          onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className="flex items-center gap-2 text-left"
+        >
+          <span
+            className="shrink-0 w-1 h-1 rounded-full border transition-colors duration-200"
+            style={{ backgroundColor: active === id ? '#141414' : 'transparent', borderColor: active === id ? '#141414' : '#D4D4D4' }}
+          />
+          <span
+            className={`font-sans text-[10px] uppercase tracking-widest transition-colors duration-200 ${active === id ? 'text-primary font-semibold' : 'text-gray-400 font-normal'}`}
+          >
+            {label}
+          </span>
+        </button>
+      ))}
+    </nav>
   );
 }
 
 export default function IMDb() {
   return (
     <div className="min-h-screen bg-white text-primary">
-      <Navbar sticky={false} />
+      <Navbar sticky={false} solid />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-28 sm:pt-32 pb-24 sm:pb-32">
-
-        <div className="mb-12">
-          <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
-            <h1 className="type-display text-primary">IMDb Redesign</h1>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {['Redesign', 'UXUI'].map(tag => (
-                <span key={tag} className="type-tag text-xs px-2.5 py-1 rounded-full bg-black/8 text-gray-500 border border-black/10">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-          <p className="type-body-lg text-gray-400 max-w-xl">
-            Modernizing the world's most trusted movie database, improving discoverability, personalization, and community.
+      {/* ── Cover ── */}
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-40 sm:pt-48 pb-24">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="type-label text-gray-400 mb-5 inline-block">Case Study — IMDb</span>
+          <h1 className="font-sans font-semibold text-2xl sm:text-3xl md:text-4xl leading-[1.2] text-primary mb-6">
+            Modernizing the world's most trusted movie database
+          </h1>
+          <p className="type-body-sm text-gray-400 max-w-xl mx-auto">
+            Improving discoverability, personalization, and community for the world's most comprehensive entertainment database.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-x-10 gap-y-4 mb-16 pt-10 border-t border-b border-black/10 pb-10">
+        <div className="flex flex-nowrap justify-center gap-x-6 pt-10 mt-10 border-t mx-auto overflow-x-auto" style={{ borderColor: LINE }}>
           {meta.map(m => (
-            <div key={m.label} className="flex flex-col gap-1">
-              <span className="type-label text-gray-400">{m.label}</span>
-              <span className="type-body-sm text-primary">{m.value}</span>
+            <div key={m.label} className="flex flex-col items-center gap-1 text-center shrink-0">
+              <span className="type-label text-gray-400 whitespace-nowrap">{m.label}</span>
+              <span className="type-body-sm text-primary whitespace-nowrap">{m.value}</span>
             </div>
           ))}
         </div>
 
-        <div className="rounded-2xl overflow-hidden w-full aspect-video mb-16">
+        <div className="rounded-2xl overflow-hidden w-full max-w-2xl mx-auto aspect-[16/10] mt-14" style={{ backgroundColor: PANEL }}>
           <img src="/imdb/imdb_cover.png" alt="IMDb Redesign cover" className="w-full h-full object-cover" />
         </div>
+      </div>
 
-        <TableOfContents sections={TOC} />
+      {/* ── Content ── */}
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pb-24 sm:pb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-[160px_1fr] gap-x-16">
+          <SectionNav sections={sections} />
 
-        <div>
-
-          <div id="overview" className="mb-20">
-            <Label>Overview</Label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div>
-                <p className="type-body text-gray-500 mb-4">
-                  IMDb is the world's most comprehensive entertainment database, covering cast, reviews, where to watch, behind the scenes details, and production insights for millions of titles.
-                </p>
-                <p className="type-body text-gray-500">
-                  It holds a 4.7 on the App Store and 4.8 on Google Play. The data looks fine, but underneath the ratings, recurring complaints kept surfacing across community discussions.
-                </p>
-              </div>
-              <div>
-                <p className="type-body text-gray-500">
-                  Meanwhile, Letterboxd and Rotten Tomatoes are reshaping how users engage with entertainment through community, personalization, and a more modern interface. This redesign focuses on closing that gap without losing what makes IMDb irreplaceable.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div id="research" className="mb-20">
-            <Label>Research</Label>
-
-            {/* 1. Voice of Customer */}
-            <div className="mb-16">
-              <SubLabel>Voice of Customer</SubLabel>
-              <div className="flex flex-wrap gap-2 mb-8">
-                {voiceOfCustomer.map(g => (
-                  <span key={g.theme} className="px-4 py-2 rounded-full bg-yellow-400/15 text-yellow-600 font-sans font-medium text-sm leading-snug">
-                    {g.theme.replace('\n', ' ')}
-                  </span>
-                ))}
-              </div>
-              <div className="columns-1 sm:columns-2 md:columns-3 gap-x-10">
-                {voiceOfCustomer.flatMap(g => g.quotes).map((quote, index) => (
-                  <p key={quote} className={`font-sans italic text-gray-400 text-sm mb-5 break-inside-avoid ${index >= 5 ? 'hidden sm:block' : ''}`}>
-                    &ldquo;{quote}&rdquo;
+          <div>
+            {/* ── Overview ── */}
+            <div id="overview" className="mb-20">
+              <Heading>Overview</Heading>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                  <Eyebrow>The Product</Eyebrow>
+                  <p className="type-body text-base text-gray-500 mb-4">
+                    IMDb is the world's most comprehensive entertainment database, covering cast, reviews, where to watch, behind the scenes details, and production insights for millions of titles.
                   </p>
-                ))}
+                  <p className="type-body text-base text-gray-500">
+                    It holds a 4.7 on the App Store and 4.8 on Google Play. The data looks fine, but underneath the ratings, recurring complaints kept surfacing across community discussions.
+                  </p>
+                </div>
+                <div>
+                  <Eyebrow>The Opportunity</Eyebrow>
+                  <p className="type-body text-base text-gray-500">
+                    Meanwhile, Letterboxd and Rotten Tomatoes are reshaping how users engage with entertainment through community, personalization, and a more modern interface. This redesign focuses on closing that gap without losing what makes IMDb irreplaceable.
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* 2. Hypothesis */}
-            <div className="mb-16">
-              <SubLabel>Hypothesis</SubLabel>
-              <div className="flex flex-col gap-3">
-                {hypotheses.map((h, i) => (
-                  <div key={h.number} className="rounded-2xl bg-white p-6 md:p-8 flex items-start gap-6">
-                    <span className="type-label text-[#ff5e3a] shrink-0 mt-0.5">H{i + 1}</span>
-                    <p className="type-body text-gray-500">{h.text}</p>
-                  </div>
-                ))}
+            {/* ── Research ── */}
+            <div id="research" className="mb-20">
+              <Heading>What the research surfaced</Heading>
+
+              <div className="mb-16">
+                <Eyebrow>Voice of Customer</Eyebrow>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {voiceOfCustomer.map(g => (
+                    <span key={g.theme} className="px-4 py-2 rounded-full bg-yellow-400/15 text-yellow-700 font-sans font-medium text-sm leading-snug">
+                      {g.theme.replace('\n', ' ')}
+                    </span>
+                  ))}
+                </div>
+                <div className="columns-1 sm:columns-2 md:columns-3 gap-x-10">
+                  {voiceOfCustomer.flatMap(g => g.quotes).map((quote, index) => (
+                    <p key={quote} className={`font-sans italic text-gray-400 text-sm mb-5 break-inside-avoid ${index >= 5 ? 'hidden sm:block' : ''}`}>
+                      &ldquo;{quote}&rdquo;
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-16">
+                <Eyebrow>Hypothesis</Eyebrow>
+                <div className="flex flex-col gap-3">
+                  {hypotheses.map((h, i) => (
+                    <div key={h.number} className="rounded-2xl p-6 md:p-8 flex items-start gap-6" style={{ backgroundColor: PANEL }}>
+                      <span className="type-label shrink-0 mt-0.5" style={{ color: ACCENT }}>H{i + 1}</span>
+                      <p className="type-body text-base text-gray-500">{h.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-16">
+                <Eyebrow>User Interview</Eyebrow>
+                <p className="type-body text-base text-gray-500">
+                  I interviewed three active IMDb users, each with over a year of usage.{' '}
+                  <span className="font-medium text-primary">Their most frequently used features were Cast &amp; Crew Search, Trivia, and Quick Ratings Check — all quick lookups.</span>{' '}
+                  Search results were considered accurate, but users found the experience cluttered with{' '}
+                  <span className="font-medium text-primary">messy layout</span>,{' '}
+                  <span className="font-medium text-primary">long scroll</span>,{' '}
+                  <span className="font-medium text-primary">outdated UI</span>, and{' '}
+                  <span className="font-medium text-primary">hidden features</span>. Users consistently turned to other apps for social sharing, watch logging, and review comparison.
+                </p>
+              </div>
+
+              <div>
+                <Eyebrow>Hypothesis Validation</Eyebrow>
+                <div className="flex flex-col gap-3">
+                  {validations.map(v => (
+                    <div key={v.hypothesis} className="rounded-2xl p-6 md:p-8 flex items-start gap-6" style={{ backgroundColor: PANEL }}>
+                      <div className="flex flex-col items-center gap-1 shrink-0">
+                        <span className="type-label" style={{ color: ACCENT }}>{v.hypothesis}</span>
+                        <span className={`type-label px-2 py-0.5 rounded-full ${v.result === 'Confirmed' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-500'}`}>
+                          {v.result}
+                        </span>
+                      </div>
+                      <p className="type-body text-base text-gray-500">{v.text}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* 3. User Interview */}
-            <div className="mb-16">
-              <SubLabel>User Interview</SubLabel>
-              <p className="type-body text-gray-500">
-                I interviewed three active IMDb users, each with over a year of usage.{' '}
-                <span className="font-medium text-primary">Their most frequently used features were Cast &amp; Crew Search, Trivia, and Quick Ratings Check — all quick lookups.</span>{' '}
-                Search results were considered accurate, but users found the experience cluttered with{' '}
-                <span className="font-medium text-primary">messy layout</span>,{' '}
-                <span className="font-medium text-primary">long scroll</span>,{' '}
-                <span className="font-medium text-primary">outdated UI</span>, and{' '}
-                <span className="font-medium text-primary">hidden features</span>. Users consistently turned to other apps for social sharing, watch logging, and review comparison.
+            {/* ── Problem ── */}
+            <div id="problem" className="mb-20 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10">
+              <p className="font-sans font-semibold text-lg text-primary">Problem</p>
+              <p className="type-body text-base text-gray-600">
+                Users struggle to discover and engage with IMDb's personalized features, leaving their experience passive and surface-level.
               </p>
             </div>
 
-            {/* 4. Hypothesis Validation */}
-            <div>
-              <SubLabel>Hypothesis Validation</SubLabel>
-              <div className="flex flex-col gap-3">
-                {validations.map(v => (
-                  <div key={v.hypothesis} className="rounded-2xl bg-white p-6 md:p-8 flex items-start gap-6">
-                    <div className="flex flex-col items-center gap-1 shrink-0">
-                      <span className="type-label text-[#ff5e3a]">{v.hypothesis}</span>
-                      <span className={`type-label px-2 py-0.5 rounded-full ${v.result === 'Confirmed' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-500'}`}>
-                        {v.result}
-                      </span>
-                    </div>
-                    <p className="type-body text-gray-500">{v.text}</p>
+            {/* ── Analysis ── */}
+            <div id="analysis" className="mb-20">
+              <Heading>Analysis</Heading>
+              <Eyebrow>SWOT Analysis</Eyebrow>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {swot.map(s => (
+                  <div key={s.label} className="rounded-2xl p-6 flex flex-col gap-3" style={{ backgroundColor: PANEL }}>
+                    <p className={`type-label font-medium ${s.labelColor}`}>{s.label}</p>
+                    <ul className="flex flex-col gap-2 list-disc list-inside">
+                      {s.items.map(item => (
+                        <li key={item} className="type-body-sm text-gray-500">{item}</li>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
             </div>
 
-          </div>
+            {/* ── Solution ── */}
+            <div id="solution" className="mb-20">
+              <Heading>Solution</Heading>
 
-          <div id="problem" className="mb-20">
-            <Label>Problem</Label>
-            <p className="font-sans font-semibold text-2xl md:text-[40px] leading-tight text-yellow-500 text-center">
-              Users struggle to discover and engage with IMDb's personalized features, leaving their experience passive and surface-level.
-            </p>
-          </div>
+              <div className="mb-16 flex flex-col gap-4">
+                <p className="font-sans font-semibold text-lg md:text-xl text-primary leading-snug">
+                  From passive lookup to active engagement
+                </p>
+                <p className="type-body text-base text-gray-500">
+                  Improve goal oriented search behavior and enhance personalization through community driven recommendations, without disrupting the core use case IMDb already does well.
+                </p>
+              </div>
 
-          <div className="mb-20">
-            <Label>Analysis</Label>
-            <SubLabel>SWOT Analysis</SubLabel>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {swot.map(s => (
-                <div key={s.label} className={`rounded-2xl border p-6 flex flex-col gap-3 ${s.color}`}>
-                  <p className={`type-label font-medium ${s.labelColor}`}>{s.label}</p>
-                  <ul className="flex flex-col gap-2 list-disc list-inside">
-                    {s.items.map(item => (
-                      <li key={item} className="type-body text-gray-500">{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div className="flex flex-col gap-20">
+                {screens.map((s) => (
+                  <div key={s.name}>
+                    <p className="font-sans font-semibold text-base text-primary mb-8">{s.name}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-start">
+                      <div className="flex flex-col gap-3 h-full">
+                        <span className="type-label text-gray-400">As Is</span>
+                        <div className="rounded-2xl p-6 flex justify-center" style={{ backgroundColor: '#FFFFFF' }}>
+                          <div className="w-[240px] aspect-[9/16] shrink-0 flex items-start justify-center">
+                            <img src={s.beforeSrc} alt={`${s.name} before`} className="w-full h-full object-contain" />
+                          </div>
+                        </div>
+                        <p className="type-body-sm text-gray-500">{s.asBefore}</p>
+                      </div>
+                      <div className="flex flex-col gap-3 h-full">
+                        <span className="type-label" style={{ color: ACCENT }}>To Be</span>
+                        <div className="flex justify-center p-6">
+                          <div className="w-[240px] aspect-[9/16] rounded-xl overflow-hidden shrink-0">
+                            <video src={s.video} className="w-full h-full object-cover" autoPlay loop muted playsInline />
+                          </div>
+                        </div>
+                        <p className="type-body-sm text-gray-500">{s.asAfter}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div id="solution" className="mb-20">
-            <Label>Solution</Label>
-
-            <div className="mb-16">
-              <SubLabel>Direction</SubLabel>
+            {/* ── Reflection ── */}
+            <div id="reflection">
+              <Heading>Reflection</Heading>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
-                  <h2 className="font-sans font-light text-2xl md:text-3xl text-primary mb-4 leading-snug">
-                    From passive lookup<br />to active engagement
-                  </h2>
+                  <Eyebrow>What I learned</Eyebrow>
+                  <p className="type-body text-base text-gray-500">
+                    High ratings don't mean users are satisfied; they mean users haven't found a better alternative yet. The gap between surface metrics and actual behavior is where the most important design opportunities live.
+                  </p>
                 </div>
-                <div className="flex items-end">
-                  <p className="type-body text-gray-500">
-                    Improve goal oriented search behavior and enhance personalization through community driven recommendations, without disrupting the core use case IMDb already does well.
+                <div>
+                  <Eyebrow>What I'd do differently</Eyebrow>
+                  <p className="type-body text-base text-gray-500">
+                    I'd run usability tests on the existing app before forming hypotheses, not after. The validation phase revealed that H3 needed refinement (layout vs. volume), which earlier observation sessions might have caught sooner.
                   </p>
                 </div>
               </div>
             </div>
-
-            <div>
-              <div className="flex flex-col gap-20">
-                {screens.map((s) => (
-                  <div key={s.name}>
-                    <div className="flex items-baseline gap-3 mb-8">
-                      <h3 className="font-sans font-light text-xl text-primary">{s.name}</h3>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                      <div className="flex flex-col gap-3">
-                        <span className="type-label text-gray-400">As Is</span>
-                        <div className="rounded-2xl bg-white p-6 flex justify-center">
-                          <div className="w-[240px] aspect-[9/16] shrink-0 flex items-center justify-center">
-                            {s.beforeSrc ? (
-                              <img src={s.beforeSrc} alt={`${s.name} before`} className="w-full h-full object-contain" />
-                            ) : (
-                              <div className="w-full h-full rounded-xl bg-[#e4e4e4] flex items-end p-4">
-                                <span className="type-label text-gray-400">{s.name} current</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <p className="type-body text-gray-500">{s.asBefore}</p>
-                      </div>
-                      <div className="flex flex-col gap-3">
-                        <span className="type-label text-[#ff5e3a]">To Be</span>
-                        <div className="rounded-2xl bg-white p-6 flex justify-center">
-                          <div className="w-[240px] aspect-[9/16] rounded-xl overflow-hidden shrink-0">
-                            {s.video ? (
-                              <video src={s.video} className="w-full h-full object-cover" autoPlay loop muted playsInline />
-                            ) : (
-                              <div className="w-full h-full bg-[#e4e4e4] flex items-end p-4">
-                                <span className="type-label text-gray-400">{s.name} redesigned</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <p className="type-body text-gray-500">{s.asAfter}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
-
-          <div id="reflection">
-            <Label>Reflection</Label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div>
-                <p className="type-label text-gray-400 mb-3">What I learned</p>
-                <p className="type-body text-gray-500">
-                  High ratings don't mean users are satisfied; they mean users haven't found a better alternative yet. The gap between surface metrics and actual behavior is where the most important design opportunities live.
-                </p>
-              </div>
-              <div>
-                <p className="type-label text-gray-400 mb-3">What I'd do differently</p>
-                <p className="type-body text-gray-500">
-                  I'd run usability tests on the existing app before forming hypotheses, not after. The validation phase revealed that H3 needed refinement (layout vs. volume), which earlier observation sessions might have caught sooner.
-                </p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 

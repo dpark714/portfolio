@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Outfit', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'sans-serif'],
         serif: ['Instrument Serif', 'serif'],
         mono: ['IBM Plex Mono', 'monospace'],
       },

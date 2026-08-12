@@ -34,7 +34,7 @@ export default function TableOfContents({ sections }) {
               <span className={`shrink-0 h-px transition-all duration-300 ${
                 active === id ? 'w-5 bg-primary' : 'w-3 bg-gray-300'
               }`} />
-              <span className="font-mono text-[9px] tracking-widest uppercase leading-none whitespace-nowrap overflow-hidden transition-all duration-300 max-w-0 opacity-0 group-hover/toc:max-w-[200px] group-hover/toc:opacity-100">
+              <span className="font-['Plus_Jakarta_Sans'] text-[10px] tracking-widest uppercase leading-none whitespace-nowrap overflow-hidden transition-all duration-300 max-w-0 opacity-0 group-hover/toc:max-w-[200px] group-hover/toc:opacity-100">
                 {label}
               </span>
             </button>

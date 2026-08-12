@@ -6,8 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
-import { db } from './firebase.js';
-import { ref, onValue, push } from 'firebase/database';
+import { useProfile } from './context/ProfileContext.jsx';
+import { avatarColors, renderExpression, renderAvatar } from './lib/avatar.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,187 +60,8 @@ export function BentoCard({ children, className = '', title, tags, bg = '#F9F9F9
   );
 }
 
-export const avatarColors = ['#fcd34d', '#bae6fd', '#fecdd3', '#bef264', '#e9d5ff', '#a8a29e', '#fef08a', '#f3f4f6'];
-
-export const renderExpression = (exp) => {
-  switch (exp) {
-    case 0: return ( // Staring straight
-      <div className="flex gap-2 relative z-10">
-        <div className="w-6 h-7 bg-white rounded-[40%_60%_60%_40%] flex items-center justify-center shadow-sm">
-          <div className="w-3 h-3 bg-[#111] rounded-full"></div>
-        </div>
-        <div className="w-6 h-7 bg-white rounded-[60%_40%_40%_60%] flex items-center justify-center shadow-sm">
-          <div className="w-3 h-3 bg-[#111] rounded-full"></div>
-        </div>
-      </div>
-    );
-    case 1: return ( // Looking side
-      <div className="flex gap-2 relative z-10">
-        <div className="w-6 h-7 bg-white rounded-[40%_60%_60%_40%] flex items-center justify-start pl-1 shadow-sm">
-          <div className="w-2.5 h-2.5 bg-[#111] rounded-full"></div>
-        </div>
-        <div className="w-6 h-7 bg-white rounded-[60%_40%_40%_60%] flex items-center justify-start pl-1 shadow-sm">
-          <div className="w-2.5 h-2.5 bg-[#111] rounded-full"></div>
-        </div>
-      </div>
-    );
-    case 2: return ( // Derp
-      <div className="flex gap-2 relative z-10">
-        <div className="w-6 h-7 bg-white rounded-[40%_60%_60%_40%] flex items-start justify-center pt-1 shadow-sm">
-          <div className="w-2.5 h-2.5 bg-[#111] rounded-full"></div>
-        </div>
-        <div className="w-6 h-7 bg-white rounded-[60%_40%_40%_60%] flex items-end justify-center pb-1 shadow-sm">
-          <div className="w-2.5 h-2.5 bg-[#111] rounded-full"></div>
-        </div>
-      </div>
-    );
-    case 3: return ( // Happy / Closed
-      <div className="flex gap-3 relative z-10 mt-2 mb-1">
-        <div className="w-5 h-2.5 border-t-[3.5px] border-white rounded-t-full"></div>
-        <div className="w-5 h-2.5 border-t-[3.5px] border-white rounded-t-full"></div>
-      </div>
-    );
-    case 4: return ( // Shocked
-      <div className="flex gap-2 relative z-10">
-        <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-sm">
-          <div className="w-1.5 h-1.5 bg-[#111] rounded-full"></div>
-        </div>
-        <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-sm">
-          <div className="w-1.5 h-1.5 bg-[#111] rounded-full"></div>
-        </div>
-      </div>
-    );
-  }
-};
-
-const renderAvatar = (animalType, expType, accessoryType, scale = 1, headOnly = false) => {
-  const eyes = renderExpression(expType);
-
-  // Smooth integrated top accessories
-  const topAcc = accessoryType === 2 ? ( // Sprout
-    <div className={`absolute ${animalType === 1 ? '-top-10' : '-top-7'} z-0 flex flex-col items-center`}>
-      <div className="w-5 h-5 bg-green-400 rounded-tl-full rounded-br-full rotate-45 mb-[-6px] shadow-sm border-[1.5px] border-green-600"></div>
-      <div className="w-1.5 h-5 bg-green-600 rounded-full"></div>
-    </div>
-  ) : accessoryType === 3 ? ( // Beret
-    <div className={`absolute ${animalType === 1 ? '-top-6 right-2' : '-top-3 right-0'} z-20 rotate-[15deg]`}>
-      <div className="w-12 h-5 bg-yellow-400 rounded-[100%] border-b-[3px] border-yellow-500 relative shadow-sm">
-        <div className="w-2 h-2 bg-yellow-400 rounded-full absolute -top-1 left-1/2 -translate-x-1/2"></div>
-      </div>
-    </div>
-  ) : accessoryType === 4 ? ( // Party Hat
-    <div className={`absolute ${animalType === 1 ? '-top-14' : '-top-10'} z-20`}>
-      <div className="w-8 h-10 bg-blue-400 [clip-path:polygon(50%_0%,0%_100%,100%_100%)] relative flex justify-center shadow-sm">
-        <div className="w-2.5 h-2.5 bg-pink-400 rounded-full absolute -top-1"></div>
-        <div className="w-full h-2 bg-yellow-300 absolute bottom-0"></div>
-      </div>
-    </div>
-  ) : null;
-
-  // Smooth integrated neck accessory
-  const neckAcc = accessoryType === 1 && !headOnly ? ( // Scarf
-    <div className="absolute -bottom-3 w-[120%] h-6 bg-red-400 rounded-full z-20 border-b-[3px] border-red-500 shadow-sm flex justify-end pr-3">
-      <div className="w-4 h-10 bg-red-400 absolute top-2 right-2 rounded-b-md border-r-[3px] border-b-[3px] border-red-500 origin-top rotate-12"></div>
-    </div>
-  ) : null;
-
-  let head;
-  let headOffset = "mb-12";
-
-  switch (animalType) {
-    case 0: // Cat
-      head = (
-        <div className="relative w-20 h-20 bg-[#111] rounded-full flex flex-col items-center justify-center z-10">
-          {topAcc}
-          <div className="absolute -top-3 -left-1 w-8 h-8 bg-[#111] [clip-path:polygon(50%_0%,0%_100%,100%_100%)] rotate-[-20deg]"></div>
-          <div className="absolute -top-3 -right-1 w-8 h-8 bg-[#111] [clip-path:polygon(50%_0%,0%_100%,100%_100%)] rotate-[20deg]"></div>
-          <div className="absolute left-[-6px] top-9 w-4 h-[2px] bg-[#111] rotate-12"></div>
-          <div className="absolute left-[-6px] top-11 w-4 h-[2px] bg-[#111] -rotate-12"></div>
-          <div className="absolute right-[-6px] top-9 w-4 h-[2px] bg-[#111] -rotate-12"></div>
-          <div className="absolute right-[-6px] top-11 w-4 h-[2px] bg-[#111] rotate-12"></div>
-          {eyes}
-          <div className="w-1.5 h-1 bg-white rounded-full mt-2 opacity-80"></div>
-          {neckAcc}
-        </div>
-      );
-      break;
-    case 1: // Frog
-      headOffset = "mb-10";
-      head = (
-        <div className="relative w-24 h-16 bg-[#111] rounded-[3rem] z-10 flex flex-col items-center justify-center">
-          {topAcc}
-          <div className="absolute -top-3 left-3 w-8 h-8 bg-[#111] rounded-full z-0"></div>
-          <div className="absolute -top-3 right-3 w-8 h-8 bg-[#111] rounded-full z-0"></div>
-          <div className="absolute -top-4 w-full flex justify-center gap-2 z-10">
-            {eyes}
-          </div>
-          <div className="w-8 h-1.5 mt-4 border-b-[3px] border-white rounded-b-full opacity-80"></div>
-          {neckAcc}
-        </div>
-      );
-      break;
-    case 2: // Rabbit
-      headOffset = "mb-16";
-      head = (
-        <div className="relative w-20 h-20 bg-[#111] rounded-full z-10 flex flex-col items-center justify-center">
-          {topAcc}
-          {/* Left lop ear — droops outward to the left */}
-          <div style={{ position: 'absolute', top: '-48px', left: '8px', width: '16px', height: '60px', background: '#111', borderRadius: '50%', transform: 'rotate(-45deg)', transformOrigin: 'bottom center', zIndex: 0 }}>
-            <div style={{ position: 'absolute', top: '6px', left: '50%', transform: 'translateX(-50%)', width: '6px', height: '44px', background: 'rgba(249,168,212,0.65)', borderRadius: '50%' }} />
-          </div>
-          {/* Right lop ear — droops outward to the right */}
-          <div style={{ position: 'absolute', top: '-48px', right: '8px', width: '16px', height: '60px', background: '#111', borderRadius: '50%', transform: 'rotate(45deg)', transformOrigin: 'bottom center', zIndex: 0 }}>
-            <div style={{ position: 'absolute', top: '6px', left: '50%', transform: 'translateX(-50%)', width: '6px', height: '44px', background: 'rgba(249,168,212,0.65)', borderRadius: '50%' }} />
-          </div>
-          {eyes}
-          <div className="w-2.5 h-1.5 bg-pink-200/50 rounded-full mt-2" />
-          {neckAcc}
-        </div>
-      );
-      break;
-    case 3: // Dog
-      headOffset = "mb-12";
-      head = (
-        <div className="relative w-20 h-20 bg-[#111] rounded-[2rem] z-10 flex flex-col items-center justify-center">
-          {topAcc}
-          <div className="absolute top-2 -left-4 w-6 h-14 bg-[#111] rounded-b-full rounded-t-md rotate-[20deg] origin-top"></div>
-          <div className="absolute top-2 -right-4 w-6 h-14 bg-[#111] rounded-b-full rounded-t-md rotate-[-20deg] origin-top"></div>
-          {eyes}
-          <div className="w-4 h-2 bg-white/80 rounded-[40%_40%_50%_50%] mt-2"></div>
-          {neckAcc}
-        </div>
-      );
-      break;
-    case 4: // Hamster
-      headOffset = "mb-12";
-      head = (
-        <div className="relative w-24 h-20 bg-[#111] rounded-[3rem] z-10 flex flex-col items-center justify-center">
-          {topAcc}
-          {/* small round ears */}
-          <div className="absolute -top-2 left-4 w-5 h-5 bg-[#111] rounded-full"></div>
-          <div className="absolute -top-2 right-4 w-5 h-5 bg-[#111] rounded-full"></div>
-          {/* chubby cheek pouches */}
-          <div className="absolute -left-3 bottom-1 w-7 h-8 bg-[#111] rounded-full"></div>
-          <div className="absolute -right-3 bottom-1 w-7 h-8 bg-[#111] rounded-full"></div>
-          {eyes}
-          <div className="w-2 h-1.5 bg-white/70 rounded-full mt-1.5"></div>
-          {neckAcc}
-        </div>
-      );
-      break;
-  }
-
-  return (
-    <div className="relative flex flex-col items-center justify-end w-28 h-36" style={{ transform: `scale(${scale})` }}>
-      <div className={`relative ${headOnly ? 'mb-4' : headOffset} z-10 flex justify-center w-full`}>
-        {head}
-      </div>
-      {!headOnly && <div className="absolute bottom-[-10px] w-32 h-20 bg-[#111] rounded-t-[3rem] z-0"></div>}
-    </div>
-  );
-};
-
-function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 'guest-name' }) {
+function ProfileCreatorCard({ userName, setUserName, inputId = 'guest-name' }) {
+  const { setProfile } = useProfile();
   const [animal, setAnimal] = useState(0);
   const [expression, setExpression] = useState(0);
   const [accessory, setAccessory] = useState(0);
@@ -353,43 +174,38 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
 
           {submitted ? (
             <div className="w-full mt-2 flex flex-col items-center gap-0.5 py-2">
-              <span className="font-['Outfit'] text-2xl text-gray-700">You made the wall!</span>
-              <span className="font-mono text-[11px] text-gray-400 tracking-tight">scroll down to see yourself</span>
+              <span className="font-['Plus_Jakarta_Sans'] text-2xl text-gray-700">That's you!</span>
+              <span className="font-mono text-[11px] text-gray-400 tracking-tight">look for yourself in the top right</span>
             </div>
           ) : (
             <button
               ref={buttonRef}
-              onClick={async () => {
+              onClick={() => {
                 if (userName.trim()) {
-                  try {
-                    await onSignGuestbook({ id: Date.now(), name: userName, animal, expression, accessory, color });
-                    setUserName('');
-                    setSubmitted(true);
-                    setTimeout(() => setSubmitted(false), 3000);
-                    const rect = buttonRef.current?.getBoundingClientRect();
-                    if (rect) {
-                      confetti({
-                        particleCount: 60,
-                        spread: 70,
-                        startVelocity: 20,
-                        origin: {
-                          x: (rect.left + rect.width / 2) / window.innerWidth,
-                          y: rect.top / window.innerHeight,
-                        },
-                        scalar: 0.7,
-                        ticks: 80,
-                      });
-                    }
-                  } catch (err) {
-                    console.error('Guestbook write failed:', err);
-                    alert('Could not sign guestbook: ' + err.message);
+                  setProfile({ name: userName.trim(), animal, expression, accessory, color });
+                  setUserName('');
+                  setSubmitted(true);
+                  setTimeout(() => setSubmitted(false), 3000);
+                  const rect = buttonRef.current?.getBoundingClientRect();
+                  if (rect) {
+                    confetti({
+                      particleCount: 60,
+                      spread: 70,
+                      startVelocity: 20,
+                      origin: {
+                        x: (rect.left + rect.width / 2) / window.innerWidth,
+                        y: rect.top / window.innerHeight,
+                      },
+                      scalar: 0.7,
+                      ticks: 80,
+                    });
                   }
                 }
               }}
               disabled={!userName.trim()}
               className="w-full mt-2 bg-[#111] text-white font-mono text-sm py-2.5 rounded-xl hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign Guestbook
+              Save Profile
             </button>
           )}
 
@@ -399,251 +215,9 @@ function ProfileCreatorCard({ userName, setUserName, onSignGuestbook, inputId = 
   )
 }
 
-function ScribblingCanvas() {
-  const canvasRef = useRef(null);
-  const animRef = useRef(null);
-  const particles = useRef([]);
-  const hue = useRef(200);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    const setSize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    setSize();
-
-    const drawSparkle = (x, y, r, angle, alpha, h) => {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(angle);
-      ctx.globalAlpha = alpha;
-      ctx.strokeStyle = `hsl(${h},90%,72%)`;
-      ctx.lineWidth = Math.max(0.5, r * 0.22);
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      for (let i = 0; i < 4; i++) {
-        const a = (i / 4) * Math.PI * 2;
-        ctx.moveTo(0, 0);
-        ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(0, 0, r * 0.18, 0, Math.PI * 2);
-      ctx.fillStyle = `hsl(${h},90%,85%)`;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.restore();
-    };
-
-    const idleSparkles = Array.from({ length: 8 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      h: Math.random() * 360,
-      r: 3 + Math.random() * 3,
-      angle: Math.random() * Math.PI * 2,
-      spin: (Math.random() - 0.5) * 0.012,
-    }));
-
-    const spawn = (x, y) => {
-      hue.current = (hue.current + 15) % 360;
-      for (let i = 0; i < 5; i++) {
-        particles.current.push({
-          x, y,
-          vx: (Math.random() - 0.5) * 5,
-          vy: (Math.random() - 0.5) * 5,
-          life: 1,
-          size: 5 + Math.random() * 7,
-          h: hue.current + (Math.random() - 0.5) * 50,
-          angle: Math.random() * Math.PI * 2,
-          spin: (Math.random() - 0.5) * 0.18,
-        });
-      }
-    };
-
-    const loop = () => {
-      ctx.fillStyle = 'rgba(17,17,17,0.2)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (const d of idleSparkles) {
-        d.x += d.vx; d.y += d.vy;
-        d.h = (d.h + 0.3) % 360;
-        d.angle += d.spin;
-        if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
-        if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
-        drawSparkle(d.x, d.y, d.r, d.angle, 0.22, d.h);
-      }
-
-      particles.current = particles.current.filter(p => p.life > 0.02);
-      for (const p of particles.current) {
-        p.x += p.vx; p.y += p.vy;
-        p.vx *= 0.94; p.vy *= 0.94;
-        p.life -= 0.024;
-        p.angle += p.spin;
-        drawSparkle(p.x, p.y, p.size * p.life, p.angle, p.life, p.h);
-      }
-
-      animRef.current = requestAnimationFrame(loop);
-    };
-    loop();
-
-    const onMove = (e) => {
-      const r = canvas.getBoundingClientRect();
-      spawn(e.clientX - r.left, e.clientY - r.top);
-    };
-    const onTouch = (e) => {
-      const r = canvas.getBoundingClientRect();
-      spawn(e.touches[0].clientX - r.left, e.touches[0].clientY - r.top);
-    };
-    const onResize = () => setSize();
-
-    canvas.addEventListener('mousemove', onMove);
-    canvas.addEventListener('touchmove', onTouch, { passive: true });
-    window.addEventListener('resize', onResize);
-    return () => {
-      cancelAnimationFrame(animRef.current);
-      canvas.removeEventListener('mousemove', onMove);
-      canvas.removeEventListener('touchmove', onTouch);
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-crosshair" />;
-}
-
-function DraggablePolaroid({ guest, index, renderAvatar }) {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStart = useRef({ x: 0, y: 0 });
-  const elementStart = useRef({ x: 0, y: 0 });
-  const cardRef = useRef(null);
-  const bounds = useRef({ minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity });
-
-  const handleStart = (clientX, clientY) => {
-    setIsDragging(true);
-    dragStart.current = { x: clientX, y: clientY };
-    elementStart.current = { ...position };
-
-    if (cardRef.current && cardRef.current.parentElement) {
-      const parentRect = cardRef.current.parentElement.getBoundingClientRect();
-      const rect = cardRef.current.getBoundingClientRect();
-      bounds.current = {
-        minX: position.x - (rect.left - parentRect.left),
-        maxX: position.x + (parentRect.right - rect.right),
-        minY: position.y - (rect.top - parentRect.top),
-        maxY: position.y + (parentRect.bottom - rect.bottom)
-      };
-    }
-  };
-
-  const handleMouseDown = (e) => {
-    handleStart(e.clientX, e.clientY);
-    e.preventDefault();
-  };
-
-  const handleTouchStart = (e) => {
-    const touch = e.touches[0];
-    handleStart(touch.clientX, touch.clientY);
-  };
-
-  useEffect(() => {
-    const handleMove = (clientX, clientY) => {
-      if (!isDragging) return;
-
-      let newX = elementStart.current.x + (clientX - dragStart.current.x);
-      let newY = elementStart.current.y + (clientY - dragStart.current.y);
-
-      newX = Math.max(bounds.current.minX, Math.min(newX, bounds.current.maxX));
-      newY = Math.max(bounds.current.minY, Math.min(newY, bounds.current.maxY));
-
-      setPosition({ x: newX, y: newY });
-    };
-
-    const handleMouseMove = (e) => handleMove(e.clientX, e.clientY);
-    const handleTouchMove = (e) => {
-      if (isDragging) e.preventDefault();
-      handleMove(e.touches[0].clientX, e.touches[0].clientY);
-    };
-    const handleEnd = () => setIsDragging(false);
-
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleEnd);
-      window.addEventListener('touchmove', handleTouchMove, { passive: false });
-      window.addEventListener('touchend', handleEnd);
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleEnd);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleEnd);
-    };
-  }, [isDragging]);
-
-  return (
-    <div
-      ref={cardRef}
-      className={`relative flex flex-col items-center transition-all ${isDragging ? 'z-50 cursor-grabbing duration-0 scale-105' : 'hover:z-40 cursor-grab duration-300'}`}
-      style={{
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        rotate: `${isDragging ? 0 : (index % 5 - 2) * 4}deg`
-      }}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
-    >
-      <div className="group relative flex flex-col items-center transition-transform duration-300 hover:-translate-y-2">
-        {/* The Binder Clip */}
-        <div className="absolute -top-3 z-20 flex flex-col items-center drop-shadow-sm pointer-events-none">
-          <div className="w-3 h-2.5 border-2 border-gray-400 rounded-t-[4px] -mb-1 relative z-10"></div>
-          <div className="w-6 h-3.5 bg-[#222] rounded-sm shadow-sm border-b border-gray-700"></div>
-        </div>
-
-        {/* Polaroid Frame - slightly smaller */}
-        <div className="bg-white p-2.5 pb-10 shadow-md rounded-sm border border-gray-100 flex flex-col items-center w-[110px] pointer-events-none select-none">
-          {/* The Avatar */}
-          <div className="w-full aspect-square overflow-hidden relative flex items-end justify-center border border-gray-100/50" style={{ backgroundColor: guest.color }}>
-            <div style={{ transform: 'scale(0.5)', transformOrigin: 'center bottom', marginBottom: '-10px' }}>
-              {renderAvatar(guest.animal, guest.expression, guest.accessory, 1, false)}
-            </div>
-          </div>
-          {/* The Handwritten Name */}
-          <span className="absolute bottom-2 font-['Caveat'] text-xl text-gray-800">
-            {guest.name}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const MAX_GUESTS = 5;
-
 function MainLayout() {
   const [userName, setUserName] = useState('');
   const sectionRef = useRef(null);
-  const [guests, setGuests] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = onValue(ref(db, 'guestbook'), (snapshot) => {
-      const data = [];
-      if (snapshot.exists()) {
-        snapshot.forEach(child => { data.push({ id: child.key, ...child.val() }); });
-      }
-      setGuests(data.slice(-MAX_GUESTS));
-    }, (error) => {
-      console.error('Firebase onValue error:', error.code, error.message);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const handleSignGuestbook = async (guest) => {
-    const { id, ...guestData } = guest;
-    await push(ref(db, 'guestbook'), guestData);
-  };
 
   const greeting = userName.trim() ? `Hi ${userName.trim()},` : 'Hi there,';
 
@@ -668,7 +242,7 @@ function MainLayout() {
     <div ref={sectionRef}>
       {/* Hero Section matching the wireframe */}
       <section className="pt-28 pb-12 px-10 md:px-32 max-w-[1600px] mx-auto fade-up">
-        <div className="font-['Outfit'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
+        <div className="font-['Plus_Jakarta_Sans'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
           <p className="opacity-90">{greeting}</p>
           <p className="max-w-3xl leading-snug md:leading-normal">
             My name is Dahyeon, a UXUI designer<br className="hidden md:block" />
@@ -688,7 +262,7 @@ function MainLayout() {
           <div className="w-full lg:w-[35%] flex flex-col gap-6 lg:gap-8 fade-up">
             {/* Desktop only — on mobile shown at the end */}
             <div className="hidden lg:block">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} inputId="guest-name-desktop" />
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} inputId="guest-name-desktop" />
             </div>
             {/* Desktop only — on mobile this is shown after IMDb in right column */}
             <Link to="/interaction-design" className="hidden lg:block">
@@ -719,62 +293,18 @@ function MainLayout() {
               </BentoCard>
             </Link>
 
-            <div className="flex gap-6 lg:gap-8">
-              <Link to="/imdb" className="flex-1">
-                <BentoCard title="IMDb App" className="aspect-square" tags={['Redesign', 'UXUI']}>
-                  <img src={projects[1].image} alt="IMDb App" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
-                </BentoCard>
-              </Link>
-
-              <BentoCard title="Scribbl...ing" className="h-[200px] flex-1" bg="#111">
-                <ScribblingCanvas />
+            <Link to="/imdb">
+              <BentoCard title="IMDb App" className="h-[320px]" tags={['Redesign', 'UXUI']}>
+                <img src={projects[1].image} alt="IMDb App" className="absolute inset-0 w-full h-full object-cover z-10" style={{ objectPosition: 'center 20%' }} />
               </BentoCard>
-            </div>
+            </Link>
 
             {/* Mobile only — Who are you at the end */}
             <div className="lg:hidden">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} onSignGuestbook={handleSignGuestbook} inputId="guest-name-mobile" />
+              <ProfileCreatorCard userName={userName} setUserName={setUserName} inputId="guest-name-mobile" />
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="w-full pt-0 pb-16 px-10 md:px-32 max-w-[1600px] mx-auto fade-up">
-        <div
-          className="w-full h-[1px] opacity-60 text-gray-900"
-          style={{
-            backgroundImage: 'linear-gradient(to right, currentColor 50%, transparent 50%)',
-            backgroundSize: '20px 1px',
-            backgroundRepeat: 'repeat-x'
-          }}
-        ></div>
-      </div>
-
-      {/* Guestbook Section */}
-      <section className="px-10 md:px-32 pb-32 max-w-[1600px] mx-auto w-full fade-up flex flex-col items-center">
-        <h2 className="font-mono text-sm tracking-tight text-primary font-medium mb-6 bg-white px-8 py-2.5 rounded-full border border-gray-100 shadow-sm z-10">
-          Guestbook
-        </h2>
-        <div
-          className="w-full min-h-[200px] md:min-h-[400px] relative p-4 sm:p-8 md:p-12 flex flex-wrap gap-4 sm:gap-8 md:gap-12 items-center justify-center bg-[#fdfdfd] border-4 border-gray-100 rounded-xl shadow-sm overflow-hidden"
-          style={{
-            backgroundImage: 'linear-gradient(90deg, #d4d4d4 2px, transparent 2px), linear-gradient(#d4d4d4 2px, transparent 2px)',
-            backgroundSize: '100px 100px',
-            backgroundPosition: 'center'
-          }}
-        >
-          {guests.length === 0 ? (
-            <div className="bg-white px-8 py-6 rounded-lg shadow-md rotate-2 border border-gray-100 flex flex-col items-center">
-              <div className="w-8 h-3 bg-black/80 rounded-sm mb-4"></div>
-              <p className="font-['Caveat'] text-2xl text-gray-500">No guests yet. Be the first!</p>
-            </div>
-          ) : (
-            guests.map((g, i) => (
-              <DraggablePolaroid key={g.id} guest={g} index={i} renderAvatar={renderAvatar} />
-            ))
-          )}
         </div>
       </section>
 
@@ -1031,7 +561,7 @@ function LampScreen({ onReveal }) {
             className="absolute inset-0 flex flex-col items-center justify-center gap-3 select-none pointer-events-none"
             style={{ animation: 'hintAppear 1.6s ease-out 0.6s both' }}
           >
-            <p className="font-['Outfit'] font-light text-5xl text-white/80 tracking-tight">Dahyeon Park</p>
+            <p className="font-['Plus_Jakarta_Sans'] font-light text-5xl text-white/80 tracking-tight">Dahyeon Park</p>
             <p className="font-sans text-base text-white/50 tracking-wide">Product Designer</p>
           </div>
         )}
