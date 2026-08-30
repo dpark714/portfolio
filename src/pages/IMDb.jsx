@@ -112,7 +112,7 @@ function Eyebrow({ children }) {
 
 function Heading({ children, className = '' }) {
   return (
-    <h2 className={`font-sans font-semibold text-lg md:text-xl leading-snug mb-5 text-primary ${className}`}>
+    <h2 className={`font-sans font-semibold text-2xl leading-snug mb-5 text-primary ${className}`}>
       {children}
     </h2>
   );
@@ -163,10 +163,10 @@ function SectionNav({ sections }) {
 export default function IMDb() {
   return (
     <div className="min-h-screen bg-white text-primary">
-      <Navbar sticky={false} solid />
+      <Navbar />
 
       {/* ── Cover ── */}
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-40 sm:pt-48 pb-24">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-24 sm:pt-28 pb-24">
         <div className="text-center max-w-3xl mx-auto">
           <span className="type-label text-gray-400 mb-5 inline-block">Case Study — IMDb</span>
           <h1 className="font-sans font-semibold text-2xl sm:text-3xl md:text-4xl leading-[1.2] text-primary mb-6">
@@ -286,7 +286,7 @@ export default function IMDb() {
 
             {/* ── Problem ── */}
             <div id="problem" className="mb-20 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10">
-              <p className="font-sans font-semibold text-lg text-primary">Problem</p>
+              <p className="font-sans font-semibold text-2xl text-primary">Problem</p>
               <p className="type-body text-base text-gray-600">
                 Users struggle to discover and engage with IMDb's personalized features, leaving their experience passive and surface-level.
               </p>
@@ -312,12 +312,9 @@ export default function IMDb() {
 
             {/* ── Solution ── */}
             <div id="solution" className="mb-20">
-              <Heading>Solution</Heading>
+              <Heading>Solution: From passive lookup to active engagement</Heading>
 
-              <div className="mb-16 flex flex-col gap-4">
-                <p className="font-sans font-semibold text-lg md:text-xl text-primary leading-snug">
-                  From passive lookup to active engagement
-                </p>
+              <div className="mb-16">
                 <p className="type-body text-base text-gray-500">
                   Improve goal oriented search behavior and enhance personalization through community driven recommendations, without disrupting the core use case IMDb already does well.
                 </p>

@@ -50,7 +50,7 @@ export default function ToggleWiggle() {
           </div>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
             <h1 className="font-sans font-light text-4xl md:text-5xl text-primary">Toggle Wiggle</h1>
-            <p className="type-body text-gray-400 max-w-md md:text-right">
+            <p className="type-body text-gray-400 max-w-xl md:text-right">
               Same function, three personalities.<br />How motion and form language reshape a simple on/off.
             </p>
           </div>

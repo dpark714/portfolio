@@ -81,10 +81,13 @@ export default function About() {
             <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Who am I?</p>
             <div className="flex flex-col gap-5">
               <p className="font-sans text-base text-gray-600 leading-relaxed">
-                Hi there! I'm Dahyeon ["tah-hyuhn"]. Growing up in South Korea, I was the kid who changed career dreams every other week. One day I wanted to be a dentist, the next a fashion designer, and then a dancer. Looking back, none of those dreams really stuck but the curiosity behind them did.
+                Hi! I'm Dahyeon ["tah-hyuhn"]. Looking back, I was the kid who changed career dreams every other week. One day I wanted to be a dentist, the next a fashion designer, and then a dancer. Looking back, none of those dreams really stuck but the curiosity behind them did.
               </p>
               <p className="font-sans text-base text-gray-600 leading-relaxed">
-                Today, I'm pursuing a Master's in User Experience Design at TH Ingolstadt in Germany. I enjoy designing experiences that feel meaningful and human. Behind the screens, you can find me brewing coffee, running, or baking.
+                I graduated with a Bachelor of Science in Computer Science in New York, and soon after, I found myself drawn to product design as another way to explore that curiosity.
+              </p>
+              <p className="font-sans text-base text-gray-600 leading-relaxed">
+                Today, I'm pursuing a Master's in User Experience Design at TH Ingolstadt in Germany. I care about the small details you might not notice, but can always feel. Behind the screens, you can find me brewing coffee, running, or baking.
               </p>
             </div>
           </div>
@@ -99,8 +102,6 @@ export default function About() {
             </div>
           </div>
         </section>
-
-        <hr className="border-t border-gray-200" />
 
         {/* Timeline */}
         <section className="flex flex-col gap-10 max-w-2xl">

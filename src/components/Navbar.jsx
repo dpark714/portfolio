@@ -7,60 +7,62 @@ export default function Navbar({ sticky = true, solid = false }) {
   const { profile } = useProfile();
 
   return (
-    <nav className={`${sticky ? 'fixed' : 'absolute'} top-0 left-0 right-0 z-50 h-20 ${solid ? 'bg-white' : 'bg-white/80 backdrop-blur-md'} border-b border-black/8 px-4 md:px-10 flex items-center`}>
+    <nav className={`${sticky ? 'fixed' : 'absolute'} top-0 left-0 right-0 z-50 h-20 ${solid ? 'bg-white' : 'bg-white/80 backdrop-blur-md'} border-b border-black/8`}>
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 h-full flex items-center relative">
 
-      {/* Logo — far left */}
-      <Link to="/" aria-label="Home" className="shrink-0 hover:opacity-70 transition-opacity">
-        <img src="/google-logo.png" alt="Home" className="w-10 h-10 md:w-14 md:h-14 object-contain" />
-      </Link>
-
-      {/* Nav links — centered */}
-      <div className="flex-1 flex items-center justify-center gap-6 md:gap-12">
-        <Link to="/about" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
-          About
+        {/* Logo — far left */}
+        <Link to="/" aria-label="Home" className="shrink-0 hover:opacity-70 transition-opacity z-10">
+          <img src="/google-logo.png" alt="Home" className="w-10 h-10 md:w-14 md:h-14 object-contain" />
         </Link>
-        <Link to="/work" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
-          Work
-        </Link>
-      </div>
 
-      {/* Social icons — LinkedIn always visible, email desktop only */}
-      <div className="shrink-0 flex items-center gap-3 md:gap-5">
-        {profile && (
-          <div className="flex items-center gap-1.5 md:gap-2 shrink-0" title={profile.name}>
-            <div
-              className="w-7 h-7 md:w-8 md:h-8 rounded-full overflow-hidden relative flex items-center justify-center shrink-0"
-              style={{ backgroundColor: profile.color }}
-            >
-              {renderAvatar(profile.animal, profile.expression, profile.accessory, 0.22, true)}
+        {/* Nav links — fixed to the true center of the content column, unaffected by the profile badge's width */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-6 md:gap-12">
+          <Link to="/about" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
+            About
+          </Link>
+          <Link to="/work" className="font-mono text-xs md:text-sm uppercase tracking-wider md:tracking-widest text-primary hover:opacity-40 transition-opacity">
+            Work
+          </Link>
+        </div>
+
+        {/* Social icons — LinkedIn always visible, email desktop only */}
+        <div className="ml-auto shrink-0 flex items-center gap-3 md:gap-5 z-10">
+          {profile && (
+            <div className="flex items-center gap-1.5 md:gap-2 shrink-0" title={profile.name}>
+              <div
+                className="w-7 h-7 md:w-8 md:h-8 rounded-full overflow-hidden relative flex items-center justify-center shrink-0"
+                style={{ backgroundColor: profile.color }}
+              >
+                {renderAvatar(profile.animal, profile.expression, profile.accessory, 0.22, true)}
+              </div>
+              <span className="hidden sm:inline font-mono text-xs text-primary max-w-[80px] truncate">
+                {profile.name}
+              </span>
             </div>
-            <span className="hidden sm:inline font-mono text-xs text-primary max-w-[80px] truncate">
-              {profile.name}
-            </span>
-          </div>
-        )}
-        <a
-          href="https://www.linkedin.com/in/dahyeon-park/"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center justify-center text-primary hover:text-[#EE0002] transition-colors"
-          aria-label="LinkedIn"
-        >
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-            <rect x="2" y="9" width="4" height="12"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-        </a>
-        <a
-          href="mailto:dahyeon714@gmail.com"
-          className="hidden md:flex items-center justify-center text-primary hover:text-[#EE0002] transition-colors"
-          aria-label="Email"
-        >
-          <AtSign className="w-5 h-5" strokeWidth={1.5} />
-        </a>
-      </div>
+          )}
+          <a
+            href="https://www.linkedin.com/in/dahyeon-park/"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center text-primary hover:text-[#EE0002] transition-colors"
+            aria-label="LinkedIn"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a
+            href="mailto:dahyeon714@gmail.com"
+            className="hidden md:flex items-center justify-center text-primary hover:text-[#EE0002] transition-colors"
+            aria-label="Email"
+          >
+            <AtSign className="w-5 h-5" strokeWidth={1.5} />
+          </a>
+        </div>
 
+      </div>
     </nav>
   );
 }

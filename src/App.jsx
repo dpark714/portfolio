@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import confetti from 'canvas-confetti';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -60,15 +59,7 @@ export function BentoCard({ children, className = '', title, tags, bg = '#F9F9F9
   );
 }
 
-function ProfileCreatorCard({ userName, setUserName, inputId = 'guest-name' }) {
-  const { setProfile } = useProfile();
-  const [animal, setAnimal] = useState(0);
-  const [expression, setExpression] = useState(0);
-  const [accessory, setAccessory] = useState(0);
-  const [color, setColor] = useState('#bae6fd');
-  const [submitted, setSubmitted] = useState(false);
-  const buttonRef = useRef(null);
-
+function ProfileCreatorCard({ userName, setUserName, animal, setAnimal, expression, setExpression, accessory, setAccessory, color, setColor, inputId = 'guest-name' }) {
   const nextItem = (setter, length) => setter(prev => (prev + 1) % length);
   const prevItem = (setter, length) => setter(prev => (prev - 1 + length) % length);
 
@@ -172,43 +163,6 @@ function ProfileCreatorCard({ userName, setUserName, inputId = 'guest-name' }) {
             ))}
           </div>
 
-          {submitted ? (
-            <div className="w-full mt-2 flex flex-col items-center gap-0.5 py-2">
-              <span className="font-['Plus_Jakarta_Sans'] text-2xl text-gray-700">That's you!</span>
-              <span className="font-mono text-[11px] text-gray-400 tracking-tight">look for yourself in the top right</span>
-            </div>
-          ) : (
-            <button
-              ref={buttonRef}
-              onClick={() => {
-                if (userName.trim()) {
-                  setProfile({ name: userName.trim(), animal, expression, accessory, color });
-                  setUserName('');
-                  setSubmitted(true);
-                  setTimeout(() => setSubmitted(false), 3000);
-                  const rect = buttonRef.current?.getBoundingClientRect();
-                  if (rect) {
-                    confetti({
-                      particleCount: 60,
-                      spread: 70,
-                      startVelocity: 20,
-                      origin: {
-                        x: (rect.left + rect.width / 2) / window.innerWidth,
-                        y: rect.top / window.innerHeight,
-                      },
-                      scalar: 0.7,
-                      ticks: 80,
-                    });
-                  }
-                }
-              }}
-              disabled={!userName.trim()}
-              className="w-full mt-2 bg-[#111] text-white font-mono text-sm py-2.5 rounded-xl hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Save Profile
-            </button>
-          )}
-
         </div>
       </div>
     </BentoCard>
@@ -216,10 +170,23 @@ function ProfileCreatorCard({ userName, setUserName, inputId = 'guest-name' }) {
 }
 
 function MainLayout() {
+  const { setProfile } = useProfile();
   const [userName, setUserName] = useState('');
+  const [animal, setAnimal] = useState(0);
+  const [expression, setExpression] = useState(0);
+  const [accessory, setAccessory] = useState(0);
+  const [color, setColor] = useState('#bae6fd');
   const sectionRef = useRef(null);
 
   const greeting = userName.trim() ? `Hi ${userName.trim()},` : 'Hi there,';
+
+  useEffect(() => {
+    if (userName.trim()) {
+      setProfile({ name: userName.trim(), animal, expression, accessory, color });
+    } else {
+      setProfile(null);
+    }
+  }, [userName, animal, expression, accessory, color, setProfile]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -245,7 +212,7 @@ function MainLayout() {
         <div className="font-['Plus_Jakarta_Sans'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
           <p className="opacity-90">{greeting}</p>
           <p className="max-w-3xl leading-snug md:leading-normal">
-            My name is Dahyeon, a UXUI designer<br className="hidden md:block" />
+            I'm Dahyeon, a product designer based in Germany<br className="hidden md:block" />
             <span className="bg-yellow-200 px-1">I design at the intersection of code and cognition</span>
           </p>
           <p className="text-base md:text-lg font-['Crimson_Pro'] font-normal opacity-80 pt-4">
@@ -262,7 +229,14 @@ function MainLayout() {
           <div className="w-full lg:w-[35%] flex flex-col gap-6 lg:gap-8 fade-up">
             {/* Desktop only — on mobile shown at the end */}
             <div className="hidden lg:block">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} inputId="guest-name-desktop" />
+              <ProfileCreatorCard
+                userName={userName} setUserName={setUserName}
+                animal={animal} setAnimal={setAnimal}
+                expression={expression} setExpression={setExpression}
+                accessory={accessory} setAccessory={setAccessory}
+                color={color} setColor={setColor}
+                inputId="guest-name-desktop"
+              />
             </div>
             {/* Desktop only — on mobile this is shown after IMDb in right column */}
             <Link to="/interaction-design" className="hidden lg:block">
@@ -301,7 +275,14 @@ function MainLayout() {
 
             {/* Mobile only — Who are you at the end */}
             <div className="lg:hidden">
-              <ProfileCreatorCard userName={userName} setUserName={setUserName} inputId="guest-name-mobile" />
+              <ProfileCreatorCard
+                userName={userName} setUserName={setUserName}
+                animal={animal} setAnimal={setAnimal}
+                expression={expression} setExpression={setExpression}
+                accessory={accessory} setAccessory={setAccessory}
+                color={color} setColor={setColor}
+                inputId="guest-name-mobile"
+              />
             </div>
           </div>
 

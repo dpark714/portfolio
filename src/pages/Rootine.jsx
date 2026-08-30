@@ -59,7 +59,7 @@ function Eyebrow({ children }) {
 
 function Heading({ children, className = '' }) {
   return (
-    <h2 className={`font-sans font-semibold text-lg md:text-xl leading-snug mb-5 text-primary ${className}`}>
+    <h2 className={`font-sans font-semibold text-2xl leading-snug mb-5 text-primary ${className}`}>
       {children}
     </h2>
   );
@@ -164,16 +164,16 @@ function SectionNav({ sections }) {
 export default function Rootine() {
   return (
     <div className="min-h-screen bg-white text-primary">
-      <Navbar sticky={false} solid />
+      <Navbar />
 
       {/* ── Cover ── */}
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-40 sm:pt-48 pb-24">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-24 sm:pt-28 pb-24">
         <div className="text-center max-w-3xl mx-auto">
           <span className="type-label text-gray-400 mb-5 inline-block">Case Study — Rootine</span>
           <h1 className="font-sans font-semibold text-2xl sm:text-3xl md:text-4xl leading-[1.2] text-primary mb-6">
             You get three tasks a day. That's it.
           </h1>
-          <p className="type-body-sm text-gray-400 max-w-xl mx-auto">
+          <p className="type-body-sm text-gray-400 mx-auto sm:whitespace-nowrap">
             A daily productivity app that encourages intentional living by limiting your tasks to three per day.
           </p>
         </div>
@@ -222,21 +222,19 @@ export default function Rootine() {
               <Heading>What the research surfaced</Heading>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-10">
-                <div className="flex items-center gap-4 rounded-2xl px-6 py-5 flex-1" style={{ backgroundColor: PANEL }}>
-                  <p className="type-stat text-primary shrink-0">47%</p>
-                  <div className="w-px h-8 bg-black/8 shrink-0" />
-                  <div>
-                    <p className="font-mono text-[9px] uppercase tracking-wide text-gray-400 mb-0.5">Desk Research</p>
-                    <p className="type-body-sm text-gray-500 leading-snug">of people carry lengthy to-do lists (APA)</p>
-                  </div>
+                <div className="flex flex-col gap-2 rounded-2xl px-6 py-5 flex-1" style={{ backgroundColor: PANEL }}>
+                  <p className="font-mono text-[9px] uppercase tracking-wide text-gray-400">Desk Research</p>
+                  <p className="leading-snug">
+                    <span className="type-stat text-primary">47%</span>{' '}
+                    <span className="type-body-sm text-gray-500">of people carry lengthy to-do lists (APA)</span>
+                  </p>
                 </div>
-                <div className="flex items-center gap-4 rounded-2xl px-6 py-5 flex-1" style={{ backgroundColor: PANEL }}>
-                  <p className="type-stat text-primary shrink-0">25%</p>
-                  <div className="w-px h-8 bg-black/8 shrink-0" />
-                  <div>
-                    <p className="font-mono text-[9px] uppercase tracking-wide text-gray-400 mb-0.5">In-depth Interviews · 8 professionals</p>
-                    <p className="type-body-sm text-gray-500 leading-snug">actually finish their daily list</p>
-                  </div>
+                <div className="flex flex-col gap-2 rounded-2xl px-6 py-5 flex-1" style={{ backgroundColor: PANEL }}>
+                  <p className="font-mono text-[9px] uppercase tracking-wide text-gray-400">In-depth Interviews · 8 professionals</p>
+                  <p className="leading-snug">
+                    <span className="type-stat text-primary">25%</span>{' '}
+                    <span className="type-body-sm text-gray-500">actually finish their daily list</span>
+                  </p>
                 </div>
               </div>
 
@@ -255,7 +253,7 @@ export default function Rootine() {
 
             {/* ── Problem ── */}
             <div id="problem" className="mb-20 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10">
-              <p className="font-sans font-semibold text-lg text-primary">Problem</p>
+              <p className="font-sans font-semibold text-2xl text-primary">Problem</p>
               <p className="type-body text-base text-gray-600">
                 How might we help people build consistent to-do list habits that feel manageable & not overwhelming, while still gaining a real sense of achievement?
               </p>
@@ -264,7 +262,7 @@ export default function Rootine() {
             {/* ── User Persona ── */}
             <div id="persona" className="mb-20">
               <Heading>User Persona</Heading>
-              <div className="pt-6 border-t" style={{ borderColor: LINE }}>
+              <div className="pt-6">
                 <div className="flex flex-row items-start gap-5 md:gap-8">
                   <img src="/rootine/persona.png" alt="Hailey Lee" className="w-20 h-20 md:w-44 md:h-44 shrink-0 rounded-full object-cover" />
                   <div className="flex flex-col gap-1 md:gap-4 flex-1 min-w-0">
@@ -346,7 +344,7 @@ export default function Rootine() {
             {/* ── Design Principles ── */}
             <div id="principles" className="mb-20">
               <Heading>Design Principles</Heading>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 pt-6 border-t" style={{ borderColor: LINE }}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 pt-6">
                 {principles.map((p) => (
                   <div key={p.number} className="flex flex-col gap-2">
                     <span className="type-label" style={{ color: ACCENT }}>{p.number}</span>
