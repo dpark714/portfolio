@@ -5,7 +5,6 @@ import Footer from '../components/Footer.jsx';
 
 const projects = [
   {
-    index: '01',
     category: 'Animated button',
     title: 'Toggle Wiggle',
     description: 'Same function, three personalities. How motion and form language reshape a simple on/off.',
@@ -15,7 +14,6 @@ const projects = [
     href: '/interaction-design/toggle-wiggle',
   },
   {
-    index: '02',
     category: 'Stove Heat Control',
     title: 'HandleHeat',
     description: 'A physical-digital interface mapping handle grip and rotation to precise stove heat levels.',
@@ -60,7 +58,6 @@ export default function InteractionDesign() {
               {/* Info */}
               <div className="flex-1 flex flex-col gap-2">
                 <div className="flex items-baseline gap-3">
-                  <span className="type-tag text-gray-400">{p.index}</span>
                   <span className="type-label text-gray-400">{p.category}</span>
                 </div>
                 <h2 className="font-sans font-light text-2xl text-primary">{p.title}</h2>

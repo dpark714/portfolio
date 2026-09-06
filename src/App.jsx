@@ -35,7 +35,6 @@ function Background() {
   );
 }
 
-
 export function BentoCard({ children, className = '', title, tags, bg = '#F9F9F9' }) {
   return (
     <div className={`relative group rounded-xl overflow-hidden flex flex-col shadow-lg border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ${className}`}>
@@ -209,7 +208,7 @@ function MainLayout() {
     <div ref={sectionRef}>
       {/* Hero Section matching the wireframe */}
       <section className="pt-28 pb-12 px-10 md:px-32 max-w-[1600px] mx-auto fade-up">
-        <div className="font-['Plus_Jakarta_Sans'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
+        <div className="font-['Outfit'] font-light text-xl md:text-3xl space-y-4 md:space-y-6 text-primary tracking-tight">
           <p className="opacity-90">{greeting}</p>
           <p className="max-w-3xl leading-snug md:leading-normal">
             I'm Dahyeon, a product designer based in Germany<br className="hidden md:block" />

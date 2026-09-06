@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 
 export default function Footer() {
@@ -7,7 +8,7 @@ export default function Footer() {
 
         {/* Top: message left, links right */}
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
-          <p className="font-['Plus_Jakarta_Sans'] font-light text-xl md:text-[30px] text-white/80 leading-relaxed max-w-2xl">
+          <p className="font-['Outfit'] font-light text-xl md:text-[30px] text-white/80 leading-relaxed max-w-2xl">
             Thanks for making it this far down the page.<br />I hope we can go even further together!
           </p>
           <div className="flex items-end gap-6 self-end md:self-auto">
@@ -33,10 +34,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom: name + copyright */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-white/10">
-          <span className="font-mono text-xs text-white/40 uppercase tracking-widest">Dahyeon Park</span>
-          <span className="font-mono text-xs text-white/25">© 2026 Dahyeon Park</span>
+        {/* Bottom: copyright + Impressum */}
+        <div className="flex items-center gap-4 pt-6 border-t border-white/10">
+          <span className="font-mono text-xs text-white/25 uppercase">© 2026 DAHYEON PARK</span>
+          <Link to="/impressum" className="font-mono text-xs text-white/40 hover:text-white transition-colors duration-200">
+            Impressum
+          </Link>
+          <Link to="/privacy-policy" className="font-mono text-xs text-white/40 hover:text-white transition-colors duration-200">
+            Privacy Policy
+          </Link>
         </div>
 
       </div>

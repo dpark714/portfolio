@@ -9,6 +9,8 @@ import IMDb from './pages/IMDb.jsx'
 import Work from './pages/Work.jsx'
 import Fintalo from './pages/Fintalo.jsx'
 import UnderConstruction from './pages/UnderConstruction.jsx'
+import Impressum from './pages/Impressum.jsx'
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import InteractionDesign from './pages/InteractionDesign.jsx'
 import ToggleWiggle from './pages/interaction/ToggleWiggle.jsx'
 import HandleHeat from './pages/interaction/HandleHeat.jsx'
@@ -40,6 +42,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/rootine" element={<Rootine />} />
               <Route path="/imdb" element={<IMDb />} />
               <Route path="/fintalo" element={<Fintalo />} />
+              <Route path="/impressum" element={<Impressum />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/interaction-design" element={<InteractionDesign />} />
               <Route path="/interaction-design/toggle-wiggle" element={<ToggleWiggle />} />
               <Route path="/interaction-design/handle-heat" element={<HandleHeat />} />

@@ -13,6 +13,10 @@ const experience = [
   { role: 'AI/ML Engineer Fellow', year: '2023', company: 'Pfizer & Cornell University, USA', image: '/Pfizer_groupPic.jpg' },
 ];
 
+const publications = [
+  { title: 'SpaceSound (VR Soundscape)', venue: 'Gesellschaft für Informatik (GI)', href: 'https://dl.gi.de/items/7db664e7-3f57-433d-b36a-07167fd5534a' },
+];
+
 const interests = [
   {
     id: 'coffee',
@@ -55,7 +59,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-primary selection:bg-yellow-200">
-      <Navbar sticky={false} />
+      <Navbar />
 
       {/* Greeting */}
       <div className="px-6 md:px-16 pt-28 max-w-[1200px] mx-auto flex flex-col items-center">
@@ -141,6 +145,25 @@ export default function About() {
                     <span className="font-sans text-sm text-gray-400 shrink-0">{e.year}</span>
                   </div>
                   <p className="font-sans text-sm text-gray-400">{e.company}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Publications</p>
+            <div className="flex flex-col gap-5">
+              {publications.map((p) => (
+                <div key={p.title}>
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-sans font-semibold text-base text-primary hover:underline underline-offset-2"
+                  >
+                    {p.title}
+                  </a>
+                  <p className="font-sans text-sm text-gray-400">{p.venue}</p>
                 </div>
               ))}
             </div>

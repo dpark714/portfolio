@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 
 const PANEL = '#F7F6F3';
-const LINE = 'rgba(20,20,20,0.08)';
+const LINE = 'rgba(18,33,29,0.14)';
 const ACCENT = '#CA9A00';
+const INK = '#12211D';
+const MUTED = 'rgba(18,33,29,0.62)';
+
+const tags = ['UXUI', 'Redesign'];
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -104,7 +109,7 @@ const screens = [
 
 function Eyebrow({ children }) {
   return (
-    <span className="type-label text-gray-400 mb-6 block">
+    <span className="type-label text-[rgba(18,33,29,0.62)] mb-6 block">
       {children}
     </span>
   );
@@ -112,9 +117,25 @@ function Eyebrow({ children }) {
 
 function Heading({ children, className = '' }) {
   return (
-    <h2 className={`font-sans font-semibold text-2xl leading-snug mb-5 text-primary ${className}`}>
+    <h2 className={`font-sans font-semibold text-2xl leading-snug mb-5 text-[#12211D] ${className}`}>
       {children}
     </h2>
+  );
+}
+
+function Reveal({ children, delay = 0, ...rest }) {
+  const reduceMotion = useReducedMotion();
+  if (reduceMotion) return <div {...rest}>{children}</div>;
+  return (
+    <motion.div
+      {...rest}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2, margin: '-60px' }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -138,56 +159,76 @@ function SectionNav({ sections }) {
   }, [sections]);
 
   return (
-    <nav className="hidden lg:flex flex-col gap-2.5 sticky top-32 self-start">
-      {sections.map(({ id, label }) => (
-        <button
-          key={id}
-          onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-          className="flex items-center gap-2 text-left"
-        >
-          <span
-            className="shrink-0 w-1 h-1 rounded-full border transition-colors duration-200"
-            style={{ backgroundColor: active === id ? '#141414' : 'transparent', borderColor: active === id ? '#141414' : '#D4D4D4' }}
-          />
-          <span
-            className={`font-sans text-[10px] uppercase tracking-widest transition-colors duration-200 ${active === id ? 'text-primary font-semibold' : 'text-gray-400 font-normal'}`}
+    <nav className="hidden lg:flex flex-col items-start gap-3 sticky top-32 self-start">
+      {sections.map(({ id, label }) => {
+        const isActive = active === id;
+        return (
+          <button
+            key={id}
+            onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            className="group relative flex items-center py-0.5"
           >
-            {label}
-          </span>
-        </button>
-      ))}
+            <span
+              className="shrink-0 h-[2px] rounded-full transition-all duration-300"
+              style={{ width: isActive ? '32px' : '14px', backgroundColor: isActive ? '#141414' : '#D4D4D4' }}
+            />
+            <span
+              className={`pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md px-2.5 py-1 font-sans text-[10px] uppercase tracking-widest opacity-0 -translate-x-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 ${isActive ? 'text-[#12211D] font-semibold' : 'text-[rgba(18,33,29,0.62)] font-normal'}`}
+              style={{ backgroundColor: '#FFFFFF', border: '1px solid #D4D4D4' }}
+            >
+              {label}
+            </span>
+          </button>
+        );
+      })}
     </nav>
   );
 }
 
 export default function IMDb() {
   return (
-    <div className="min-h-screen bg-white text-primary">
+    <div className="min-h-screen bg-white text-[#12211D]">
       <Navbar />
 
       {/* ── Cover ── */}
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-24 sm:pt-28 pb-24">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="type-label text-gray-400 mb-5 inline-block">Case Study — IMDb</span>
-          <h1 className="font-sans font-semibold text-2xl sm:text-3xl md:text-4xl leading-[1.2] text-primary mb-6">
-            Modernizing the world's most trusted movie database
-          </h1>
-          <p className="type-body-sm text-gray-400 max-w-xl mx-auto">
-            Improving discoverability, personalization, and community for the world's most comprehensive entertainment database.
-          </p>
-        </div>
-
-        <div className="flex flex-nowrap justify-center gap-x-6 pt-10 mt-10 border-t mx-auto overflow-x-auto" style={{ borderColor: LINE }}>
-          {meta.map(m => (
-            <div key={m.label} className="flex flex-col items-center gap-1 text-center shrink-0">
-              <span className="type-label text-gray-400 whitespace-nowrap">{m.label}</span>
-              <span className="type-body-sm text-primary whitespace-nowrap">{m.value}</span>
+      <div className="relative overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-14 xl:px-20 pt-24 sm:pt-28 pb-16 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+            <div>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm mb-4 inline-block" style={{ color: MUTED }}> IMDb</span>
+              <h1 className="font-['Plus_Jakarta_Sans'] font-medium text-3xl sm:text-4xl leading-[1.2] lg:whitespace-nowrap" style={{ color: INK }}>
+                Modernizing the world's most trusted movie database
+              </h1>
             </div>
-          ))}
-        </div>
+            <div className="flex flex-wrap gap-2 shrink-0 md:pt-1">
+              {tags.map((t) => (
+                <span
+                  key={t}
+                  className="font-['Plus_Jakarta_Sans'] font-medium text-sm px-4 py-1.5 rounded-full border"
+                  style={{ borderColor: LINE, color: INK }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
 
-        <div className="rounded-2xl overflow-hidden w-full max-w-2xl mx-auto aspect-[16/10] mt-14" style={{ backgroundColor: PANEL }}>
-          <img src="/imdb/imdb_cover.png" alt="IMDb Redesign cover" className="w-full h-full object-cover" />
+          <p className="font-['Plus_Jakarta_Sans'] font-normal text-base leading-relaxed mt-5 md:whitespace-nowrap" style={{ color: MUTED }}>
+            Improving discoverability, personalization, and community for the world's most comprehensive entertainment database app
+          </p>
+
+          <div className="flex flex-wrap gap-x-12 gap-y-5 mt-12">
+            {meta.map(m => (
+              <div key={m.label} className="flex flex-col gap-1">
+                <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm whitespace-nowrap" style={{ color: INK }}>{m.label}</span>
+                <span className="font-['Plus_Jakarta_Sans'] font-normal text-sm whitespace-nowrap" style={{ color: MUTED }}>{m.value}</span>
+              </div>
+            ))}
+          </div>
+
+          <Reveal className="rounded-2xl overflow-hidden w-full max-w-3xl mx-auto aspect-[16/10] mt-16" style={{ backgroundColor: PANEL }}>
+            <img src="/imdb/imdb_cover.png" alt="IMDb Redesign cover" className="w-full h-full object-cover" />
+          </Reveal>
         </div>
       </div>
 
@@ -198,29 +239,29 @@ export default function IMDb() {
 
           <div>
             {/* ── Overview ── */}
-            <div id="overview" className="mb-20">
+            <Reveal id="overview" className="mb-20 scroll-mt-28">
               <Heading>Overview</Heading>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                   <Eyebrow>The Product</Eyebrow>
-                  <p className="type-body text-base text-gray-500 mb-4">
+                  <p className="type-body text-base text-[rgba(18,33,29,0.62)] mb-4">
                     IMDb is the world's most comprehensive entertainment database, covering cast, reviews, where to watch, behind the scenes details, and production insights for millions of titles.
                   </p>
-                  <p className="type-body text-base text-gray-500">
+                  <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                     It holds a 4.7 on the App Store and 4.8 on Google Play. The data looks fine, but underneath the ratings, recurring complaints kept surfacing across community discussions.
                   </p>
                 </div>
                 <div>
                   <Eyebrow>The Opportunity</Eyebrow>
-                  <p className="type-body text-base text-gray-500">
+                  <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                     Meanwhile, Letterboxd and Rotten Tomatoes are reshaping how users engage with entertainment through community, personalization, and a more modern interface. This redesign focuses on closing that gap without losing what makes IMDb irreplaceable.
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
             {/* ── Research ── */}
-            <div id="research" className="mb-20">
+            <Reveal id="research" className="mb-20 scroll-mt-28">
               <Heading>What the research surfaced</Heading>
 
               <div className="mb-16">
@@ -234,7 +275,7 @@ export default function IMDb() {
                 </div>
                 <div className="columns-1 sm:columns-2 md:columns-3 gap-x-10">
                   {voiceOfCustomer.flatMap(g => g.quotes).map((quote, index) => (
-                    <p key={quote} className={`font-sans italic text-gray-400 text-sm mb-5 break-inside-avoid ${index >= 5 ? 'hidden sm:block' : ''}`}>
+                    <p key={quote} className={`font-sans italic text-[rgba(18,33,29,0.62)] text-sm mb-5 break-inside-avoid ${index >= 5 ? 'hidden sm:block' : ''}`}>
                       &ldquo;{quote}&rdquo;
                     </p>
                   ))}
@@ -247,7 +288,7 @@ export default function IMDb() {
                   {hypotheses.map((h, i) => (
                     <div key={h.number} className="rounded-2xl p-6 md:p-8 flex items-start gap-6" style={{ backgroundColor: PANEL }}>
                       <span className="type-label shrink-0 mt-0.5" style={{ color: ACCENT }}>H{i + 1}</span>
-                      <p className="type-body text-base text-gray-500">{h.text}</p>
+                      <p className="type-body text-base text-[rgba(18,33,29,0.62)]">{h.text}</p>
                     </div>
                   ))}
                 </div>
@@ -255,14 +296,14 @@ export default function IMDb() {
 
               <div className="mb-16">
                 <Eyebrow>User Interview</Eyebrow>
-                <p className="type-body text-base text-gray-500">
+                <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                   I interviewed three active IMDb users, each with over a year of usage.{' '}
-                  <span className="font-medium text-primary">Their most frequently used features were Cast &amp; Crew Search, Trivia, and Quick Ratings Check — all quick lookups.</span>{' '}
+                  <span className="font-medium text-[#12211D]">Their most frequently used features were Cast &amp; Crew Search, Trivia, and Quick Ratings Check — all quick lookups.</span>{' '}
                   Search results were considered accurate, but users found the experience cluttered with{' '}
-                  <span className="font-medium text-primary">messy layout</span>,{' '}
-                  <span className="font-medium text-primary">long scroll</span>,{' '}
-                  <span className="font-medium text-primary">outdated UI</span>, and{' '}
-                  <span className="font-medium text-primary">hidden features</span>. Users consistently turned to other apps for social sharing, watch logging, and review comparison.
+                  <span className="font-medium text-[#12211D]">messy layout</span>,{' '}
+                  <span className="font-medium text-[#12211D]">long scroll</span>,{' '}
+                  <span className="font-medium text-[#12211D]">outdated UI</span>, and{' '}
+                  <span className="font-medium text-[#12211D]">hidden features</span>. Users consistently turned to other apps for social sharing, watch logging, and review comparison.
                 </p>
               </div>
 
@@ -277,23 +318,23 @@ export default function IMDb() {
                           {v.result}
                         </span>
                       </div>
-                      <p className="type-body text-base text-gray-500">{v.text}</p>
+                      <p className="type-body text-base text-[rgba(18,33,29,0.62)]">{v.text}</p>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
+            </Reveal>
 
             {/* ── Problem ── */}
-            <div id="problem" className="mb-20 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10">
-              <p className="font-sans font-semibold text-2xl text-primary">Problem</p>
-              <p className="type-body text-base text-gray-600">
+            <Reveal id="problem" className="mb-20 scroll-mt-28 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10">
+              <p className="font-sans font-semibold text-2xl text-[#12211D]">Problem</p>
+              <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                 Users struggle to discover and engage with IMDb's personalized features, leaving their experience passive and surface-level.
               </p>
-            </div>
+            </Reveal>
 
             {/* ── Analysis ── */}
-            <div id="analysis" className="mb-20">
+            <Reveal id="analysis" className="mb-20 scroll-mt-28">
               <Heading>Analysis</Heading>
               <Eyebrow>SWOT Analysis</Eyebrow>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -302,20 +343,20 @@ export default function IMDb() {
                     <p className={`type-label font-medium ${s.labelColor}`}>{s.label}</p>
                     <ul className="flex flex-col gap-2 list-disc list-inside">
                       {s.items.map(item => (
-                        <li key={item} className="type-body-sm text-gray-500">{item}</li>
+                        <li key={item} className="type-body-sm text-[rgba(18,33,29,0.62)]">{item}</li>
                       ))}
                     </ul>
                   </div>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
             {/* ── Solution ── */}
-            <div id="solution" className="mb-20">
+            <Reveal id="solution" className="mb-20 scroll-mt-28">
               <Heading>Solution: From passive lookup to active engagement</Heading>
 
               <div className="mb-16">
-                <p className="type-body text-base text-gray-500">
+                <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                   Improve goal oriented search behavior and enhance personalization through community driven recommendations, without disrupting the core use case IMDb already does well.
                 </p>
               </div>
@@ -323,50 +364,50 @@ export default function IMDb() {
               <div className="flex flex-col gap-20">
                 {screens.map((s) => (
                   <div key={s.name}>
-                    <p className="font-sans font-semibold text-base text-primary mb-8">{s.name}</p>
+                    <p className="font-sans font-semibold text-base text-[#12211D] mb-8">{s.name}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-start">
                       <div className="flex flex-col gap-3 h-full">
-                        <span className="type-label text-gray-400">As Is</span>
+                        <span className="type-label text-[rgba(18,33,29,0.62)]">As Is</span>
                         <div className="rounded-2xl p-6 flex justify-center" style={{ backgroundColor: '#FFFFFF' }}>
                           <div className="w-[240px] aspect-[9/16] shrink-0 flex items-start justify-center">
                             <img src={s.beforeSrc} alt={`${s.name} before`} className="w-full h-full object-contain" />
                           </div>
                         </div>
-                        <p className="type-body-sm text-gray-500">{s.asBefore}</p>
+                        <p className="type-body-sm text-[rgba(18,33,29,0.62)]">{s.asBefore}</p>
                       </div>
                       <div className="flex flex-col gap-3 h-full">
-                        <span className="type-label" style={{ color: ACCENT }}>To Be</span>
+                        <span className="type-label" style={{ color: '#F59E0B' }}>To Be</span>
                         <div className="flex justify-center p-6">
                           <div className="w-[240px] aspect-[9/16] rounded-xl overflow-hidden shrink-0">
                             <video src={s.video} className="w-full h-full object-cover" autoPlay loop muted playsInline />
                           </div>
                         </div>
-                        <p className="type-body-sm text-gray-500">{s.asAfter}</p>
+                        <p className="type-body-sm text-[rgba(18,33,29,0.62)]">{s.asAfter}</p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
             {/* ── Reflection ── */}
-            <div id="reflection">
+            <Reveal id="reflection" className="scroll-mt-28">
               <Heading>Reflection</Heading>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                   <Eyebrow>What I learned</Eyebrow>
-                  <p className="type-body text-base text-gray-500">
+                  <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                     High ratings don't mean users are satisfied; they mean users haven't found a better alternative yet. The gap between surface metrics and actual behavior is where the most important design opportunities live.
                   </p>
                 </div>
                 <div>
                   <Eyebrow>What I'd do differently</Eyebrow>
-                  <p className="type-body text-base text-gray-500">
+                  <p className="type-body text-base text-[rgba(18,33,29,0.62)]">
                     I'd run usability tests on the existing app before forming hypotheses, not after. The validation phase revealed that H3 needed refinement (layout vs. volume), which earlier observation sessions might have caught sooner.
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'sans-serif'],
-        serif: ['Instrument Serif', 'serif'],
         mono: ['IBM Plex Mono', 'monospace'],
       },
       colors: {

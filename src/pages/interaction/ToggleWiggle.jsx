@@ -2,6 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '../../components/Navbar.jsx';
 
+const INK = '#12211D';
+const MUTED = 'rgba(18,33,29,0.62)';
+const LINE = 'rgba(18,33,29,0.14)';
+
 const variants = [
   {
     name: 'Standard',
@@ -24,7 +28,7 @@ export default function ToggleWiggle() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white text-primary">
+    <div className="min-h-screen bg-white text-[#12211D]">
       <Navbar sticky={false} />
       <button
         onClick={() => navigate('/interaction-design')}
@@ -40,17 +44,16 @@ export default function ToggleWiggle() {
         <div>
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-8">
             <div className="flex items-baseline gap-4">
-              <span className="type-tag text-gray-400">01</span>
-              <span className="type-label text-gray-400">Animated button</span>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm" style={{ color: MUTED }}>Animated button</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="type-tag text-xs text-gray-500 border border-gray-300 rounded-full px-4 py-1.5">2-week sprint</span>
-              <span className="type-tag text-xs text-gray-500 border border-gray-300 rounded-full px-4 py-1.5">Individual</span>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm rounded-full px-4 py-1.5 border" style={{ color: INK, borderColor: LINE }}>2-week sprint</span>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm rounded-full px-4 py-1.5 border" style={{ color: INK, borderColor: LINE }}>Individual</span>
             </div>
           </div>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-            <h1 className="font-sans font-light text-4xl md:text-5xl text-primary">Toggle Wiggle</h1>
-            <p className="type-body text-gray-400 max-w-xl md:text-right">
+            <h1 className="font-['Plus_Jakarta_Sans'] font-medium text-3xl sm:text-4xl leading-[1.2]" style={{ color: INK }}>Toggle Wiggle</h1>
+            <p className="font-['Plus_Jakarta_Sans'] text-sm leading-relaxed max-w-xl md:text-right" style={{ color: MUTED }}>
               Same function, three personalities.<br />How motion and form language reshape a simple on/off.
             </p>
           </div>
@@ -61,12 +64,12 @@ export default function ToggleWiggle() {
           {variants.map((v) => (
             <div key={v.name} className="flex flex-col">
               <div className="rounded-2xl overflow-hidden bg-[#1c1c1e] aspect-[3/4] mb-4">
-                <video src={v.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                <video src={v.src} autoPlay loop muted playsInline className="w-full h-full object-cover scale-[1.06] origin-top" />
               </div>
               <div className="flex items-baseline mb-1.5">
-                <span className="type-title text-primary">{v.name}</span>
+                <span className="type-title text-[#12211D]">{v.name}</span>
               </div>
-              <p className="type-body text-gray-500">{v.description}</p>
+              <p className="type-body-sm text-[rgba(18,33,29,0.62)]">{v.description}</p>
             </div>
           ))}
         </div>

@@ -2,6 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '../../components/Navbar.jsx';
 
+const INK = '#12211D';
+const MUTED = 'rgba(18,33,29,0.62)';
+const LINE = 'rgba(18,33,29,0.14)';
+
 const stoveStates = [
   { label: 'Heating Up', src: '/interaction/handle-heat/heating-up.mp4', desc: 'Pan is on and actively heating. The interface responds with a gradual glow intensity.' },
   { label: 'Changing', src: '/interaction/handle-heat/changing.mp4', desc: 'Pan moves between burners. The system tracks position and transfers the heat state.' },
@@ -12,7 +16,7 @@ export default function HandleHeat() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white text-primary">
+    <div className="min-h-screen bg-white text-[#12211D]">
       <Navbar sticky={false} />
       <button
         onClick={() => navigate('/interaction-design')}
@@ -28,17 +32,16 @@ export default function HandleHeat() {
         <div>
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-8">
             <div className="flex items-baseline gap-4">
-              <span className="type-tag text-gray-400">02</span>
-              <span className="type-label text-gray-400">Stove Heat Control</span>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm" style={{ color: MUTED }}>Stove Heat Control</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="type-tag text-xs text-gray-500 border border-gray-300 rounded-full px-4 py-1.5">2-week sprint</span>
-              <span className="type-tag text-xs text-gray-500 border border-gray-300 rounded-full px-4 py-1.5">Team of 4</span>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm rounded-full px-4 py-1.5 border" style={{ color: INK, borderColor: LINE }}>2-week sprint</span>
+              <span className="font-['Plus_Jakarta_Sans'] font-medium text-sm rounded-full px-4 py-1.5 border" style={{ color: INK, borderColor: LINE }}>Team of 4</span>
             </div>
           </div>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-            <h1 className="font-sans font-light text-4xl md:text-5xl text-primary">HandleHeat</h1>
-            <p className="type-body text-gray-400 max-w-sm md:text-right">
+            <h1 className="font-['Plus_Jakarta_Sans'] font-medium text-3xl sm:text-4xl leading-[1.2]" style={{ color: INK }}>HandleHeat</h1>
+            <p className="font-['Plus_Jakarta_Sans'] text-sm leading-relaxed max-w-sm md:text-right" style={{ color: MUTED }}>
               A physical-digital interface that maps handle grip and rotation to precise stove heat levels.
             </p>
           </div>
@@ -46,15 +49,15 @@ export default function HandleHeat() {
 
         {/* Concept */}
         <div className="space-y-4">
-          <span className="type-label text-orange-400">Concept</span>
-          <p className="type-body text-gray-500">
+          <span className="type-label" style={{ color: '#F59E0B' }}>Concept</span>
+          <p className="type-body-sm text-[rgba(18,33,29,0.62)]">
             Cooking often demands adjusting heat mid-process, with occupied hands and controls that are unresponsive or difficult to clean. HandleHeat relocates heat control to the pan handle itself, where the hand already rests. The stove becomes a fully flat, adaptive surface that responds to where cookware is placed. The cookware handles the rest: detecting emergencies like burning or overflowing and alerting the user in real time, making cooking safer, cleaner, and more intuitive.
           </p>
         </div>
 
         {/* i. Heat Control */}
         <div className="space-y-4">
-          <span className="type-label text-orange-400">Overview</span>
+          <span className="type-label" style={{ color: '#F59E0B' }}>Overview</span>
           <div className="rounded-2xl overflow-hidden bg-[#111] w-full aspect-video">
             <video src="/interaction/handle-heat/overview-of-pan.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
           </div>
@@ -62,8 +65,8 @@ export default function HandleHeat() {
 
         {/* ii. Handle Interaction */}
         <div className="space-y-4">
-          <span className="type-label text-orange-400">Handle Interaction</span>
-          <p className="type-body text-gray-500">
+          <span className="type-label" style={{ color: '#F59E0B' }}>Handle Interaction</span>
+          <p className="type-body-sm text-[rgba(18,33,29,0.62)]">
             Auditory snap feedback confirms each heat increment. Ergonomic handle indentations guide natural grip for precise control. The wheel advances in distinct clicks with calibrated resistance, deliberate by design. Inspired by the camera dial: fluid enough to turn easily, resistant enough to prevent accidental changes.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -78,8 +81,8 @@ export default function HandleHeat() {
 
         {/* iii. Pans */}
         <div className="space-y-4">
-          <span className="type-label text-orange-400">Pans</span>
-          <p className="type-body text-gray-500">
+          <span className="type-label" style={{ color: '#F59E0B' }}>Pans</span>
+          <p className="type-body-sm text-[rgba(18,33,29,0.62)]">
             An LED ring on the pan rim reflects the current heat level in real time. LEDs beneath the pan illuminate to confirm active burner connection. Color and animation adapt to heat intensity, shifting from a slow pulse at low heat to a rapid flicker at high.
           </p>
           <div className="rounded-2xl overflow-hidden w-full">
@@ -89,7 +92,7 @@ export default function HandleHeat() {
 
         {/* iv. Stove states */}
         <div className="space-y-4">
-          <span className="type-label text-orange-400">Stove</span>
+          <span className="type-label" style={{ color: '#F59E0B' }}>Stove</span>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {stoveStates.map((s) => (
               <div key={s.label} className="flex flex-col gap-3">
@@ -97,8 +100,8 @@ export default function HandleHeat() {
                   <video src={s.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="type-title text-primary mb-1">{s.label}</p>
-                  <p className="type-body text-gray-500">{s.desc}</p>
+                  <p className="type-title text-[#12211D] mb-1">{s.label}</p>
+                  <p className="type-body-sm text-[rgba(18,33,29,0.62)]">{s.desc}</p>
                 </div>
               </div>
             ))}

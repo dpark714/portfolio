@@ -5,7 +5,6 @@ import Footer from '../components/Footer.jsx';
 
 const projects = [
   {
-    index: '01',
     category: 'B2B · Technical University of Munich Design Club',
     title: 'Fintalo',
     description: 'Designed the front-end interface for an AI Analyst feature on a B2B M&A platform.',
@@ -17,7 +16,6 @@ const projects = [
     comingSoon: false,
   },
   {
-    index: '02',
     category: 'End-to-end · Mobile',
     title: 'Rootine',
     description: 'A habit-tracking app designed to build sustainable routines through micro-interactions.',
@@ -29,7 +27,6 @@ const projects = [
     comingSoon: false,
   },
   {
-    index: '03',
     category: 'Redesign · Mobile',
     title: 'IMDb App',
     description: 'A redesign of the IMDb mobile experience, streamlining discovery.',
@@ -78,7 +75,6 @@ export default function Work() {
                 {/* Info */}
                 <div className="flex-1 flex flex-col gap-2">
                   <div className="flex items-baseline gap-3">
-                    <span className="type-tag text-gray-400">{p.index}</span>
                     <span className="type-label text-gray-400">{p.category}</span>
                   </div>
                   <h2 className={`font-sans font-light text-2xl ${p.comingSoon ? 'text-gray-400' : 'text-primary'}`}>{p.title}</h2>
@@ -100,7 +96,7 @@ export default function Work() {
             );
 
             return (
-              <div key={p.href + p.index} className="border-b border-black/10">
+              <div key={p.href} className="border-b border-black/10">
                 {p.comingSoon ? inner : <Link to={p.href}>{inner}</Link>}
               </div>
             );
