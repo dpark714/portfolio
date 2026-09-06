@@ -34,7 +34,7 @@ export default function Impressum() {
             </h2>
             <p>
               Dahyeon Park<br />
-              Viehmarktplatz 1<br />
+              Viehmarktplatz<br />
               85055 Ingolstadt, Germany
             </p>
           </section>
