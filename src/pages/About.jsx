@@ -80,7 +80,14 @@ export default function About() {
       <div className="px-6 md:px-16 pt-16 pb-20 max-w-[1200px] mx-auto flex flex-col gap-20">
 
         {/* Bio */}
-        <section className="flex flex-col-reverse md:flex-row gap-10 md:gap-14 lg:gap-16 items-start">
+        <section className="flex flex-col md:flex-row gap-10 md:gap-14 lg:gap-16 items-start">
+          {/* Profile photo */}
+          <div className="w-[220px] sm:w-[250px] md:w-[260px] lg:w-[300px] shrink-0 mx-auto md:mx-0">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
+              <img src="/profile.jpg" alt="Dahyeon Park" className="w-full h-full object-cover" />
+            </div>
+          </div>
+
           <div className="flex-1 flex flex-col gap-6">
             <p className="font-mono text-xs text-gray-400 uppercase tracking-widest">Who am I?</p>
             <div className="flex flex-col gap-5">
@@ -93,16 +100,6 @@ export default function About() {
               <p className="font-sans text-base text-gray-600 leading-relaxed">
                 Today, I'm pursuing a Master's in User Experience Design at TH Ingolstadt in Germany. I care about the small details you might not notice, but can always feel. Behind the screens, you can find me brewing coffee, running, or baking.
               </p>
-            </div>
-          </div>
-
-          {/* Country photo collage */}
-          <div className="w-[220px] sm:w-[260px] md:w-[260px] lg:w-[340px] shrink-0 grid grid-cols-2 gap-2 mx-auto md:mx-0 md:mt-10">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
-              <img src="/country/USA.JPG" alt="United States" className="w-full h-full object-cover" />
-            </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100">
-              <img src="/country/Korea.jpg" alt="Korea" className="w-full h-full object-cover" />
             </div>
           </div>
         </section>
